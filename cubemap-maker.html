@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lemon Cubemap Maker</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --dark-space: #0A0A10;
+            --deep-purple:#FACC15;
+            --light-purple:#FDE047;
+            --glow-color:rgba(250,204,21,0.25);
+            --glass-bg: rgba(18, 18, 28, 0.6);
+            --border-color:rgba(250,204,21,0.35);
+            --text-primary:#FFF7CC;
+            --text-secondary:#D4CBA3;
+            --input-bg: rgba(30, 30, 45, 0.7);
+            --card-bg: rgba(22, 22, 34, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: var(--dark-space);
+            color: var(--text-primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background-image:
+                radial-gradient(ellipse 40% 50% at 20% 0%, var(--glow-color), transparent),
+                radial-gradient(ellipse 40% 50% at 80% 100%, var(--glow-color), transparent);
+            background-attachment: fixed;
+            overflow-y: auto;
+        }
+
+        .main-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 40px 0;
+        }
+
+        .creator-card {
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: clamp(20px, 4vw, 35px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.8s 0.2s backwards;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .card-header { text-align: center; margin-bottom: 25px; }
+        .card-header h1 { font-size: clamp(1.8rem, 7vw, 2.3rem); font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(90deg, #FFFFFF, #D1C4E9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .card-header h1 span { background: linear-gradient(90deg, var(--light-purple), var(--deep-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .card-header p { color: var(--text-secondary); font-size: clamp(0.9rem, 3vw, 1rem); }
+        
+        .input-group { margin-bottom: 18px; }
+        .label-wrapper { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .label-wrapper .actions { display: flex; gap: 5px; }
+        label { font-weight: 600; font-size: 0.95rem; color: var(--text-secondary); }
+
+        .file-input-wrapper {
+            position: relative; background: var(--input-bg); border: 1px dashed var(--border-color); border-radius: 12px;
+            padding: 15px; display: flex; align-items: center; cursor: pointer; transition: background-color 0.3s, border-color 0.3s;
+            min-height: 80px;
+        }
+        .file-input-wrapper:hover { background-color: rgba(30, 30, 45, 1); border-color: var(--light-purple); }
+        input[type="file"] { position: absolute; width: 100%; height: 100%; left: 0; top: 0; opacity: 0; cursor: pointer; }
+        .file-input-wrapper img { width: 50px; height: 50px; margin-right: 15px; object-fit: contain; background: rgba(0,0,0,0.2); border-radius: 8px; flex-shrink: 0; }
+        .file-input-text { color: var(--text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.95rem; flex: 1; }
+        .file-input-text.selected { color: var(--text-primary); font-weight: 500; }
+        
+        input[type="text"] { width: 100%; padding: 16px; background-color: var(--input-bg); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-primary); font-size: 1rem; font-family: 'Manrope', sans-serif; transition: border-color 0.3s, box-shadow 0.3s; }
+        input[type="text"]:focus { outline: none; border-color: var(--light-purple); box-shadow: 0 0 10px var(--glow-color); }
+        
+        .settings-btn { background: none; border: none; cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; opacity: 0.5; transition: opacity 0.3s, color 0.3s; color: var(--text-secondary); border-radius: 6px; min-width: 44px; min-height: 44px; }
+        .settings-btn:hover { opacity: 1; }
+        .settings-btn.active { opacity: 1; color: var(--light-purple); }
+        .settings-btn svg, .settings-btn i { width: 22px; height: 22px; font-size: 20px; }
+
+        .radio-group { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 5px; }
+        .radio-option { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .radio-option input[type="radio"] { display: none; }
+        .radio-custom { width: 20px; height: 20px; border: 2px solid var(--border-color); border-radius: 50%; position: relative; transition: all 0.3s; }
+        .radio-option input[type="radio"]:checked + .radio-custom { border-color: var(--light-purple); background-color: var(--light-purple); box-shadow: 0 0 10px var(--glow-color); }
+        .radio-custom::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 8px; height: 8px; background: var(--dark-space); border-radius: 50%; opacity: 0; transition: opacity 0.3s; }
+        .radio-option input[type="radio"]:checked + .radio-custom::after { opacity: 1; }
+        .radio-label { color: var(--text-secondary); font-size: 0.95rem; }
+        .radio-option input[type="radio"]:checked ~ .radio-label { color: var(--text-primary); font-weight: 600; }
+        
+        .download-btn { width: 100%; padding: 18px; margin-top: 25px; background: var(--deep-purple); color: var(--text-primary); border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer; text-decoration: none; transition: transform 0.3s ease, box-shadow 0.3s ease; box-shadow: 0 0 20px rgba(123, 66, 246, 0.4); min-height: 60px; display: flex; align-items: center; justify-content: center; }
+        .download-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow: 0 0 30px rgba(123, 66, 246, 0.6); }
+        .download-btn:disabled { background: #333; color: #777; cursor: not-allowed; box-shadow: none; }
+        
+        #status { text-align: center; margin-top: 20px; min-height: 22px; color: var(--light-purple); font-weight: 500; transition: color 0.3s; font-size: 0.95rem; padding: 0 10px; }
+        
+        .page-transition { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--deep-purple); z-index: 9999; transform-origin: bottom; pointer-events: none; }
+        .page-transition.animate-in { transform: scaleY(1); animation: slideIn 0.5s ease-in-out forwards; }
+        .page-transition.animate-out { transform: scaleY(0); animation: slideOut 0.5s ease-in-out forwards; }
+        @keyframes slideIn { from { transform: scaleY(1); transform-origin: top; } to { transform: scaleY(0); transform-origin: top; } }
+        @keyframes slideOut { from { transform: scaleY(0); transform-origin: bottom; } to { transform: scaleY(1); transform-origin: bottom; } }
+
+        .back-to-hub { position: fixed; bottom: 25px; left: 25px; background: var(--deep-purple); color: var(--text-primary); padding: 12px 20px; border-radius: 12px; text-decoration: none; font-weight: 600; z-index: 1001; box-shadow: 0 0 20px rgba(123, 66, 246, 0.4); transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .back-to-hub:hover { transform: translateY(-3px); box-shadow: 0 0 30px rgba(123, 66, 246, 0.6); }
+
+        .social-links { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
+        .social-icon { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 50%; color: var(--text-secondary); font-size: 1.5rem; text-decoration: none; transition: all 0.4s ease; backdrop-filter: blur(10px); }
+        .social-icon:hover { color: var(--text-primary); background-color: var(--deep-purple); transform: translateY(-5px); box-shadow: 0 0 20px var(--glow-color); border-color: var(--light-purple); }
+
+        .cubemap-visual {
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .cube-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            perspective: 1000px;
+        }
+
+        .cube {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(-20deg);
+            animation: rotateCube 20s infinite linear;
+        }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(-20deg) rotateY(0deg); }
+            100% { transform: rotateX(-20deg) rotateY(360deg); }
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            overflow: hidden;
+        }
+
+        .cube-face img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .front  { transform: rotateY(0deg) translateZ(75px); }
+        .back   { transform: rotateY(180deg) translateZ(75px); }
+        .right  { transform: rotateY(90deg) translateZ(75px); }
+        .left   { transform: rotateY(-90deg) translateZ(75px); }
+        .top    { transform: rotateX(90deg) translateZ(75px); }
+        .bottom { transform: rotateX(-90deg) translateZ(75px); }
+
+        .face-label {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            z-index: 2;
+        }
+
+        .preview-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: var(--input-bg);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-container h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .back-to-hub { padding: 10px 15px; font-size: 0.9rem; bottom: 15px; left: 15px; }
+            .social-links { bottom: 15px; right: 15px; gap: 12px; }
+            .social-icon { width: 45px; height: 45px; font-size: 1.3rem; }
+            .cube-container { width: 120px; height: 120px; }
+            .cube-face { width: 120px; height: 120px; }
+            .front, .back, .right, .left, .top, .bottom { transform-origin: center; }
+            .front  { transform: rotateY(0deg) translateZ(60px); }
+            .back   { transform: rotateY(180deg) translateZ(60px); }
+            .right  { transform: rotateY(90deg) translateZ(60px); }
+            .left   { transform: rotateY(-90deg) translateZ(60px); }
+            .top    { transform: rotateX(90deg) translateZ(60px); }
+            .bottom { transform: rotateX(-90deg) translateZ(60px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-transition" id="pageTransition"></div>
+    <a href="index.html" class="back-to-hub nav-link"><i class="fas fa-arrow-left"></i> Back to Hub</a>
+
+    <div class="main-wrapper">
+        <div class="creator-card">
+            <div class="card-header">
+                <h1>Lemon <span>Cubemap Maker</span></h1>
+                <p>Convert images into Minecraft skybox textures easily.</p>
+            </div>
+
+            <div class="cubemap-visual">
+                <div class="cube-container">
+                    <div class="cube">
+                        <div class="cube-face front"><div class="face-label">Front</div></div>
+                        <div class="cube-face back"><div class="face-label">Back</div></div>
+                        <div class="cube-face right"><div class="face-label">Right</div></div>
+                        <div class="cube-face left"><div class="face-label">Left</div></div>
+                        <div class="cube-face top"><div class="face-label">Top</div></div>
+                        <div class="cube-face bottom"><div class="face-label">Bottom</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <div class="label-wrapper">
+                    <label>1. Select Input Method</label>
+                </div>
+                <div class="radio-group">
+                    <label class="radio-option">
+                        <input type="radio" name="inputMethod" value="single" checked>
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">Single Image (will be stretched)</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="inputMethod" value="multiple">
+                        <span class="radio-custom"></span>
+                        <span class="radio-label">Multiple Images (6 faces)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="input-group" id="singleImageSection">
+                <label>2. Upload your image</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="singleImage" accept="image/*">
+                    <img id="singleImagePreview" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="Image Preview">
+                    <span id="singleImageName" class="file-input-text">Click to select an image...</span>
+                </div>
+            </div>
+
+            <div class="input-group" id="multipleImagesSection" style="display: none;">
+                <label>2. Upload 6 face images</label>
+                <div class="file-input-wrapper" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; width: 100%;">
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Front</small>
+                            <input type="file" class="face-input" data-face="front" accept="image/*">
+                        </div>
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Back</small>
+                            <input type="file" class="face-input" data-face="back" accept="image/*">
+                        </div>
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Right</small>
+                            <input type="file" class="face-input" data-face="right" accept="image/*">
+                        </div>
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Left</small>
+                            <input type="file" class="face-input" data-face="left" accept="image/*">
+                        </div>
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Top</small>
+                            <input type="file" class="face-input" data-face="top" accept="image/*">
+                        </div>
+                        <div>
+                            <small style="color: var(--text-secondary); display: block; margin-bottom: 5px;">Bottom</small>
+                            <input type="file" class="face-input" data-face="bottom" accept="image/*">
+                        </div>
+                    </div>
+                    <div id="multipleImagesStatus" style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 10px;">
+                        No images selected
+                    </div>
+                </div>
+            </div>
+        <div class="input-group">
+            <label for="cubemapName">3. Name your cubemap</label>
+            <input type="text" id="cubemapName" placeholder="e.g. MySkybox">
+        </div>
+
+        <div class="input-group">
+            <div class="label-wrapper">
+                <label>4. Cubemap Resolution</label>
+            </div>
+            <div class="radio-group">
+                <label class="radio-option">
+                    <input type="radio" name="resolution" value="512" checked>
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">512×512 (Standard)</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="resolution" value="1024">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">1024×1024 (HD)</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="resolution" value="2048">
+                    <span class="radio-custom"></span>
+                    <span class="radio-label">2048×2048 (Ultra HD)</span>
+                </label>
+            </div>
+        </div>
+
+        <button id="downloadBtn" class="download-btn" disabled>Fill in all fields</button>
+        <div id="status"></div>
+    </div>
+</div>
+
+<div class="social-links">
+    <a href="https://www.tiktok.com/@lemonadefor_you?_r=1&_t=ZS-93i5SgmiGau" target="_blank" rel="noopener noreferrer" class="social-icon" title="TikTok">
+        <i class="fab fa-tiktok"></i>
+    </a>
+    <a href="https://discord.gg/PE4vGcZ3vY" class="social-icon" title="Discord">
+        <i class="fab fa-discord"></i>
+    </a>
+</div>
+
+<script>
+    // DOM Elements
+    const pageTransition = document.getElementById('pageTransition');
+    const singleImageInput = document.getElementById('singleImage');
+    const singleImagePreview = document.getElementById('singleImagePreview');
+    const singleImageName = document.getElementById('singleImageName');
+    const cubemapNameInput = document.getElementById('cubemapName');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const statusDiv = document.getElementById('status');
+    const faceInputs = document.querySelectorAll('.face-input');
+    const multipleImagesStatus = document.getElementById('multipleImagesStatus');
+    const singleImageSection = document.getElementById('singleImageSection');
+    const multipleImagesSection = document.getElementById('multipleImagesSection');
+    const inputMethodRadios = document.querySelectorAll('input[name="inputMethod"]');
+    const cubeFaces = document.querySelectorAll('.cube-face');
+    
+    // State variables
+    let singleImageFile = null;
+    let faceFiles = {
+        front: null,
+        back: null,
+        right: null,
+        left: null,
+        top: null,
+        bottom: null
+    };
+    let facePreviews = {};
+    
+    // Initialize face previews
+    faceInputs.forEach(input => {
+        const face = input.dataset.face;
+        facePreviews[face] = null;
+    });
+
+    // Input validation
+    function validateInputs() {
+        const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
+        let isValid = false;
+        
+        if (inputMethod === 'single') {
+            isValid = singleImageFile && cubemapNameInput.value.trim() !== '';
+        } else {
+            // Check if all 6 faces are selected
+            const allFacesSelected = Object.values(faceFiles).every(file => file !== null);
+            isValid = allFacesSelected && cubemapNameInput.value.trim() !== '';
+        }
+        
+        downloadBtn.disabled = !isValid;
+        downloadBtn.textContent = isValid ? 'Create and download .mcpack' : 'Fill in all fields';
+        
+        // Update visual preview
+        updateCubePreview();
+    }
+
+    // Handle single image upload
+    singleImageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            singleImageFile = file;
+            singleImagePreview.src = URL.createObjectURL(file);
+            singleImageName.textContent = file.name;
+            singleImageName.classList.add('selected');
+            
+            // Update all cube faces with the same image
+            updateCubeFacesWithSingleImage(URL.createObjectURL(file));
+        }
+        validateInputs();
+    });
+
+    // Handle multiple face uploads
+    faceInputs.forEach(input => {
+        input.addEventListener('change', (e) => {
+            const face = input.dataset.face;
+            const file = e.target.files[0];
+            
+            if (file) {
+                faceFiles[face] = file;
+                facePreviews[face] = URL.createObjectURL(file);
+                
+                // Update specific cube face
+                const cubeFace = document.querySelector(`.cube-face.${face}`);
+                if (cubeFace) {
+                    cubeFace.innerHTML = `<img src="${URL.createObjectURL(file)}" alt="${face}"><div class="face-label">${face.charAt(0).toUpperCase() + face.slice(1)}</div>`;
+                }
+            }
+            
+            // Update status
+            const selectedCount = Object.values(faceFiles).filter(f => f !== null).length;
+            multipleImagesStatus.textContent = `${selectedCount}/6 images selected`;
+            multipleImagesStatus.style.color = selectedCount === 6 ? 'var(--light-purple)' : 'var(--text-secondary)';
+            
+            validateInputs();
+        });
+    });
+// Handle input method change
+inputMethodRadios.forEach(radio => {
+    radio.addEventListener('change', (e) => {
+        if (e.target.value === 'single') {
+            singleImageSection.style.display = 'block';
+            multipleImagesSection.style.display = 'none';
+        } else {
+            singleImageSection.style.display = 'none';
+            multipleImagesSection.style.display = 'block';
+        }
+        validateInputs();
+    });
+});
+
+// Update cubemap name
+cubemapNameInput.addEventListener('keyup', validateInputs);
+
+// Update cube faces with single image
+function updateCubeFacesWithSingleImage(imageUrl) {
+    cubeFaces.forEach(face => {
+        const faceType = Array.from(face.classList).find(cls => cls !== 'cube-face');
+        face.innerHTML = `<img src="${imageUrl}" alt="${faceType}"><div class="face-label">${faceType.charAt(0).toUpperCase() + faceType.slice(1)}</div>`;
+    });
+}
+
+// Update cube preview
+function updateCubePreview() {
+    const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
+    
+    if (inputMethod === 'single' && singleImageFile) {
+        // Already handled by updateCubeFacesWithSingleImage
+    } else if (inputMethod === 'multiple') {
+        // Update only faces that have images
+        Object.entries(facePreviews).forEach(([face, previewUrl]) => {
+            if (previewUrl) {
+                const cubeFace = document.querySelector(`.cube-face.${face}`);
+                if (cubeFace) {
+                    cubeFace.innerHTML = `<img src="${previewUrl}" alt="${face}"><div class="face-label">${face.charAt(0).toUpperCase() + face.slice(1)}</div>`;
+                }
+            }
+        });
+    }
+}
+
+// Create canvas for image processing
+function createCanvasImage(imageUrl, resolution) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = resolution;
+            canvas.height = resolution;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw image to fit the canvas
+            ctx.drawImage(img, 0, 0, resolution, resolution);
+            resolve(canvas.toDataURL('image/png'));
+        };
+        img.src = imageUrl;
+    });
+}
+
+// Generate manifest.json content
+function generateManifest(packName) {
+    return JSON.stringify({
+        "format_version": 2,
+        "header": {
+            "name": `${packName} by Lemon`,
+            "description": "§l§ePowered by Lemon. / lemonadefor_you on Tiktok",
+            "uuid": crypto.randomUUID(),
+            "version": [0, 0, 1],
+            "min_engine_version": [1, 21, 0]
+        },
+        "modules": [
+            {
+                "description": "§e §lLemon on Top / lemonadefor_you on Tiktok",
+                "type": "resources",
+                "uuid": crypto.randomUUID(),
+                "version": [0, 0, 1]
+            }
+        ]
+    }, null, 2);
+}
+
+// Convert data URL to blob
+function dataURLtoBlob(dataurl) {
+    const [header, base64] = dataurl.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const bstr = atob(base64);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+        u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
+}
+
+// Download handler
+downloadBtn.addEventListener('click', async () => {
+    statusDiv.textContent = 'Starting...';
+    statusDiv.style.color = 'var(--light-purple)';
+    downloadBtn.disabled = true;
+    
+    try {
+        const packName = cubemapNameInput.value.trim();
+        const resolution = parseInt(document.querySelector('input[name="resolution"]:checked').value);
+        const inputMethod = document.querySelector('input[name="inputMethod"]:checked').value;
+        
+        statusDiv.textContent = 'Processing images...';
+        
+        let faceImageUrls = {};
+        
+        if (inputMethod === 'single') {
+            // Process single image for all faces
+            const processedImage = await createCanvasImage(URL.createObjectURL(singleImageFile), resolution);
+            for (const face of ['front', 'back', 'right', 'left', 'top', 'bottom']) {
+                faceImageUrls[face] = processedImage;
+            }
+        } else {
+            // Process each face individually
+            for (const [face, file] of Object.entries(faceFiles)) {
+                if (file) {
+                    faceImageUrls[face] = await createCanvasImage(URL.createObjectURL(file), resolution);
+                }
+            }
+        }
+        
+        statusDiv.textContent = 'Creating cubemap texture...';
+        
+        // Create a composite image (cubemap layout)
+        const compositeCanvas = document.createElement('canvas');
+        compositeCanvas.width = resolution * 4; // 4 faces wide
+        compositeCanvas.height = resolution * 3; // 3 faces high
+        const ctx = compositeCanvas.getContext('2d');
+        
+        // Draw faces in Minecraft cubemap layout
+        const layout = {
+            top: { x: resolution, y: 0, w: resolution, h: resolution },
+            left: { x: 0, y: resolution, w: resolution, h: resolution },
+            front: { x: resolution, y: resolution, w: resolution, h: resolution },
+            right: { x: resolution * 2, y: resolution, w: resolution, h: resolution },
+            back: { x: resolution * 3, y: resolution, w: resolution, h: resolution },
+            bottom: { x: resolution, y: resolution * 2, w: resolution, h: resolution }
+        };
+        
+        // Draw each face
+        for (const [face, faceLayout] of Object.entries(layout)) {
+            const img = new Image();
+            await new Promise(resolve => {
+                img.onload = () => {
+                    ctx.drawImage(img, faceLayout.x, faceLayout.y, faceLayout.w, faceLayout.h);
+                    resolve();
+                };
+                img.src = faceImageUrls[face];
+            });
+        }
+                const compositeDataUrl = compositeCanvas.toDataURL('image/png');
+                
+                statusDiv.textContent = 'Creating pack structure...';
+                
+                // Create JSZip instance
+                const zip = new JSZip();
+                
+                // Add manifest
+                zip.file('manifest.json', generateManifest(packName));
+                
+                // Add textures
+                const texturesFolder = zip.folder('textures').folder('environment');
+                texturesFolder.file('cubemap_sky.png', dataURLtoBlob(compositeDataUrl), { base64: true });
+                
+                // Add pack icon (use first image as icon)
+                const iconUrl = inputMethod === 'single' ? 
+                    URL.createObjectURL(singleImageFile) : 
+                    faceImageUrls.front;
+                const iconImg = new Image();
+                const iconCanvas = document.createElement('canvas');
+                iconCanvas.width = 64;
+                iconCanvas.height = 64;
+                const iconCtx = iconCanvas.getContext('2d');
+                
+                await new Promise(resolve => {
+                    iconImg.onload = () => {
+                        iconCtx.drawImage(iconImg, 0, 0, 64, 64);
+                        resolve();
+                    };
+                    iconImg.src = iconUrl;
+                });
+                
+                zip.file('pack_icon.png', dataURLtoBlob(iconCanvas.toDataURL('image/png')), { base64: true });
+                
+                // Add watermark
+                zip.file('_lemon_watermark.txt', 'Powered by Lemon Cord - https://lemonadeforyou.github.io/Lemon-Cord/');
+                
+                statusDiv.textContent = 'Compressing pack...';
+                
+                // Generate zip file
+                const content = await zip.generateAsync({ type: 'blob' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(content);
+                link.download = `${packName.replace(/[^a-zA-Z0-9_]/g, '_')}_cubemap.mcpack`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                statusDiv.textContent = `Cubemap pack '${link.download}' created successfully!`;
+                statusDiv.style.color = '#4ade80';
+                
+            } catch (error) {
+                console.error(error);
+                statusDiv.textContent = `Error: ${error.message || "An unknown error occurred."}`;
+                statusDiv.style.color = '#f87171';
+            } finally {
+                validateInputs();
+            }
+        });
+
+        // Page transition logic
+        window.addEventListener('load', () => {
+            pageTransition.classList.add('animate-in');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const destination = link.href;
+                pageTransition.classList.add('animate-out');
+                setTimeout(() => {
+                    window.location.href = destination;
+                }, 500);
+            });
+        });
+
+        // Initialize validation
+        validateInputs();
+    </script>
+</body>
+</html>
