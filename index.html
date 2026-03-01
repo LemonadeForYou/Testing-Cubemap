@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, mobile-first, all requested removals applied -->
+    <!-- Dark mode, minimal, professional, with STICKY / CONSTANT navigation bar -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -30,11 +30,17 @@
             padding: 0 24px;
         }
 
-        /* site header */
+        /* ----- STICKY HEADER (constant) ----- */
         .site-header {
             padding: 20px 0;
             border-bottom: 1px solid #1f2937;
             background-color: #0b0f17;
+            position: sticky;          /* ← makes it constant during scroll */
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            backdrop-filter: blur(4px); /* subtle modern effect, optional */
+            transition: background 0.2s;
         }
 
         .header-inner {
@@ -132,9 +138,9 @@
             margin-bottom: 36px;
         }
 
-        /* CTA group - REMOVED both buttons as requested, now empty but we keep container hidden */
+        /* CTA group - hidden as per previous request */
         .cta-group {
-            display: none;   /* completely removes Start free / Watch video */
+            display: none;
         }
 
         /* visual / abstract totem — dark mode friendly */
@@ -195,7 +201,7 @@
             font-weight: 500;
         }
 
-        /* trust bar - COMPLETELY REMOVED as requested (✦ used by 1.2k+ studios etc) */
+        /* trust bar - hidden */
         .trust-bar {
             display: none;
         }
@@ -261,12 +267,12 @@
             font-size: 16px;
         }
 
-        /* extra minimal section (color toolkit, totem animation, export) - REMOVED entirely */
+        /* extra minimal section removed */
         .mini-palette {
             display: none;
         }
 
-        /* footer dark - updated text and removed Docs link */
+        /* footer */
         .site-footer {
             border-top: 1px solid #1f2b36;
             padding: 42px 0 36px;
@@ -294,7 +300,6 @@
             font-weight: 500;
             font-size: 14px;
         }
-        /* Docs link specifically removed (we just don't include it in HTML) */
 
         /* tablet / desktop refinements */
         @media (min-width: 700px) {
@@ -342,6 +347,7 @@
     </style>
 </head>
 <body>
+    <!-- STICKY HEADER: always visible while scrolling -->
     <header class="site-header">
         <div class="container header-inner">
             <div class="logo-area">
@@ -355,7 +361,7 @@
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- three-line icon only -->
+            <!-- three-line icon only (always visible on mobile, on desktop it's hidden) -->
             <div class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
             </div>
@@ -363,14 +369,13 @@
     </header>
 
     <main>
-        <!-- hero section - badge removed, CTA buttons removed, trust bar removed -->
+        <!-- hero section -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
                     <h1>Recolor anything,<br><span>animate totems</span></h1>
                     <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace.</p>
-                    <!-- cta-group is hidden via display:none (Start free / Watch video removed) -->
-                    <div class="cta-group"></div>
+                    <div class="cta-group"></div> <!-- hidden -->
                 </div>
                 <div class="hero-visual">
                     <div class="totem-preview">
@@ -391,8 +396,6 @@
                 </div>
             </div>
         </section>
-
-        <!-- trust bar (deleted) - no markup -->
 
         <!-- features -->
         <section class="features">
@@ -423,16 +426,14 @@
             </div>
         </div>
 
-        <!-- mini-palette section (color toolkit etc) removed completely -->
-        <!-- no extra section -->
+        <!-- extra spacing for scroll demonstration, so you can see the sticky effect -->
+        <div style="height: 30vh;"></div>
     </main>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <!-- updated footer text -->
             <div class="footer-copy">© 2025 Lemon Cord. All rights reserved.</div>
             <div class="footer-links">
-                <!-- Docs link removed as requested, only Changelog and others remain -->
                 <a href="#">Changelog</a>
                 <a href="#">Discord</a>
                 <a href="#">Legal</a>
