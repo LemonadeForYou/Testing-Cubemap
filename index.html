@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, mobile-first, with final tweaks: badge removed -->
+    <!-- Dark mode, minimal, professional, mobile-first, all requested removals applied -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -111,8 +111,6 @@
             gap: 48px;
         }
 
-        /* --- BADGE REMOVED --- no .badge class used in HTML now */
-
         .hero-content h1 {
             font-size: 44px;
             font-weight: 700;
@@ -134,37 +132,9 @@
             margin-bottom: 36px;
         }
 
+        /* CTA group - REMOVED both buttons as requested, now empty but we keep container hidden */
         .cta-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .btn-primary {
-            background: #f5e56b;
-            color: #0b0f17;
-            border: none;
-            padding: 14px 34px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: default;
-            box-shadow: 0 10px 20px -8px rgba(245, 229, 107, 0.25);
-            transition: 0.1s;
-            border: 1px solid #ffefa0;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1.5px solid #3e4d5f;
-            color: #e6edf5;
-            padding: 14px 30px;
-            border-radius: 60px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: default;
-            backdrop-filter: blur(4px);
+            display: none;   /* completely removes Start free / Watch video */
         }
 
         /* visual / abstract totem — dark mode friendly */
@@ -225,25 +195,9 @@
             font-weight: 500;
         }
 
-        /* trust row — mobile wrap */
+        /* trust bar - COMPLETELY REMOVED as requested (✦ used by 1.2k+ studios etc) */
         .trust-bar {
-            padding: 30px 0 20px;
-            border-top: 1px solid #1e2a35;
-        }
-        .trust-logos {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px 25px;
-            color: #9eb3c9;
-            font-weight: 500;
-            font-size: 14px;
-        }
-        .trust-logos span {
-            background: #18212b;
-            padding: 5px 20px;
-            border-radius: 60px;
-            border: 1px solid #29384a;
+            display: none;
         }
 
         /* features */
@@ -307,53 +261,12 @@
             font-size: 16px;
         }
 
-        /* extra minimal swatches */
+        /* extra minimal section (color toolkit, totem animation, export) - REMOVED entirely */
         .mini-palette {
-            display: flex;
-            gap: 24px;
-            flex-wrap: wrap;
-            border-top: 1px solid #202b36;
-            padding-top: 48px;
-            margin-top: 20px;
-        }
-        .pal-item {
-            flex: 1 1 140px;
-        }
-        .pal-item .title {
-            font-weight: 700;
-            color: #cedff2;
-            margin-bottom: 16px;
-        }
-        .pal-color-strip {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        .chip {
-            background: #1b2938;
-            padding: 6px 18px;
-            border-radius: 40px;
-            font-size: 13px;
-            border: 1px solid #364a60;
-            color: #cbdae9;
-        }
-        .anim-blocks {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .anim-blocks div {
-            width: 30px; height: 30px;
-            background: #253950;
-            border-radius: 10px;
-            border: 1px solid #3d5470;
-        }
-        .export-text {
-            color: #b6cbe5;
-            font-weight: 500;
+            display: none;
         }
 
-        /* footer dark */
+        /* footer dark - updated text and removed Docs link */
         .site-footer {
             border-top: 1px solid #1f2b36;
             padding: 42px 0 36px;
@@ -381,6 +294,7 @@
             font-weight: 500;
             font-size: 14px;
         }
+        /* Docs link specifically removed (we just don't include it in HTML) */
 
         /* tablet / desktop refinements */
         @media (min-width: 700px) {
@@ -422,7 +336,7 @@
             .hero-content h1 { font-size: 60px; }
         }
 
-        .btn-primary, .btn-outline, .banner-cta {
+        .banner-cta {
             cursor: default;
         }
     </style>
@@ -441,7 +355,7 @@
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- three-line icon only (no button) -->
+            <!-- three-line icon only -->
             <div class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
             </div>
@@ -449,17 +363,14 @@
     </header>
 
     <main>
-        <!-- hero section - BADGE COMPLETELY REMOVED -->
+        <!-- hero section - badge removed, CTA buttons removed, trust bar removed -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
-                    <!-- the badge "🍋 fresh · pack + motion" is gone -->
                     <h1>Recolor anything,<br><span>animate totems</span></h1>
                     <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace.</p>
-                    <div class="cta-group">
-                        <span class="btn-primary">Start free →</span>
-                        <span class="btn-outline">Watch video</span>
-                    </div>
+                    <!-- cta-group is hidden via display:none (Start free / Watch video removed) -->
+                    <div class="cta-group"></div>
                 </div>
                 <div class="hero-visual">
                     <div class="totem-preview">
@@ -481,15 +392,7 @@
             </div>
         </section>
 
-        <!-- trust strip -->
-        <div class="trust-bar">
-            <div class="container trust-logos">
-                <span>✦  used by 1.2k+ studios</span>
-                <span>⚡  lottie ready</span>
-                <span>◈  design systems</span>
-                <span>🍋  lemon native</span>
-            </div>
-        </div>
+        <!-- trust bar (deleted) - no markup -->
 
         <!-- features -->
         <section class="features">
@@ -520,37 +423,16 @@
             </div>
         </div>
 
-        <!-- extra minimal studio info -->
-        <section style="padding: 10px 0 60px;">
-            <div class="container mini-palette">
-                <div class="pal-item">
-                    <div class="title">Color toolkit</div>
-                    <div class="pal-color-strip">
-                        <span class="chip">#F5E56B</span>
-                        <span class="chip">#2F455E</span>
-                        <span class="chip">#C1976A</span>
-                        <span class="chip">#A0B9D4</span>
-                    </div>
-                </div>
-                <div class="pal-item">
-                    <div class="title">Totem animation</div>
-                    <div class="anim-blocks">
-                        <div></div><div></div><div></div><div></div>
-                    </div>
-                </div>
-                <div class="pal-item">
-                    <div class="title">Export</div>
-                    <div class="export-text">.lottie .json .mp4 .css</div>
-                </div>
-            </div>
-        </section>
+        <!-- mini-palette section (color toolkit etc) removed completely -->
+        <!-- no extra section -->
     </main>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <div class="footer-copy">© 2025 Lemon Cord — dark studio for pack & totem</div>
+            <!-- updated footer text -->
+            <div class="footer-copy">© 2025 Lemon Cord. All rights reserved.</div>
             <div class="footer-links">
-                <a href="#">Docs</a>
+                <!-- Docs link removed as requested, only Changelog and others remain -->
                 <a href="#">Changelog</a>
                 <a href="#">Discord</a>
                 <a href="#">Legal</a>
