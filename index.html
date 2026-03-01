@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pack Recolorer · Animated Totem Maker</title>
-    <!-- Font & minimal styling - clean, professional, popular palette -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Lemon Cord · pack recolor & animated totems</title>
+    <!-- Dark mode, minimal, professional, mobile-first -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -17,392 +17,438 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #ffffff;
-            color: #1e293b;        /* popular deep slate */
+            background-color: #0b0f17;     /* rich dark base */
+            color: #eef2f6;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
         .container {
+            width: 100%;
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 32px;
+            padding: 0 24px;
         }
 
-        /* header – minimal, border separation */
+        /* mobile first, then small tweaks for tablet/desktop */
         .site-header {
-            padding: 24px 0;
-            border-bottom: 1px solid #e9edf4;   /* subtle grey */
-            background: #ffffff;
+            padding: 20px 0;
+            border-bottom: 1px solid #1f2937;   /* subtle dark divider */
+            background-color: #0b0f17;
         }
 
         .header-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .logo-mark {
             width: 32px;
             height: 32px;
-            background: #0f172a;    /* almost black with personality */
-            border-radius: 8px;
+            background: #f5e56b;                 /* lemon hint */
+            color: #0b0f17;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 18px;
+            box-shadow: 0 6px 12px rgba(245, 229, 107, 0.08);
         }
 
         .logo-text {
             font-weight: 700;
             font-size: 20px;
             letter-spacing: -0.02em;
-            color: #0f172a;
+            color: #f0f4fa;
         }
 
         .logo-text span {
             font-weight: 400;
-            color: #5b6c85;          /* muted secondary */
+            color: #9aa8b9;                      /* muted grey-blue */
         }
 
+        /* hide desktop nav on mobile, show hamburger icon (clean minimal) */
         .nav-links {
+            display: none;
+        }
+
+        .mobile-menu-icon {
             display: flex;
-            gap: 40px;
+            flex-direction: column;
+            gap: 5px;
+            background: transparent;
+            border: none;
+            padding: 6px;
         }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 15px;
-            color: #334155;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover {
-            color: #0f172a;
+        .mobile-menu-icon span {
+            width: 22px;
+            height: 2px;
+            background-color: #d1dbe8;
+            border-radius: 3px;
+            transition: 0.2s;
         }
 
         .header-cta {
-            background: #0f172a;
+            background-color: #232e3f;
             color: white;
             border: none;
-            padding: 10px 22px;
+            padding: 8px 18px;
             border-radius: 40px;
             font-weight: 600;
             font-size: 14px;
-            cursor: default;       /* non-interactive demo */
-            letter-spacing: 0.3px;
-            background-color: #1e293b;
-            transition: background 0.15s;
+            cursor: default;                      /* static demo */
+            letter-spacing: 0.2px;
+            border: 1px solid #334155;
+            white-space: nowrap;
         }
 
-        .header-cta:hover {
-            background-color: #0f172a;   /* subtle darken */
-        }
-
-        /* main hero — generous spacing, minimal */
+        /* ----- hero (mobile first) ----- */
         .hero {
-            padding: 80px 0 64px 0;
+            padding: 56px 0 40px;
         }
 
         .hero-grid {
             display: flex;
-            align-items: center;
-            gap: 60px;
-        }
-
-        .hero-content {
-            flex: 1;
+            flex-direction: column;
+            gap: 48px;
         }
 
         .badge {
             display: inline-block;
-            background: #eef2f6;
-            color: #1e293b;
+            background: #1e2a37;
+            color: #d3e0f0;
             font-size: 13px;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 4px 14px;
             border-radius: 40px;
             letter-spacing: 0.2px;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
+            border: 1px solid #2e3b4b;
         }
 
         .hero-content h1 {
-            font-size: 52px;
+            font-size: 44px;
             font-weight: 700;
             line-height: 1.1;
-            letter-spacing: -0.03em;
-            color: #0f172a;
-            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            margin-bottom: 20px;
         }
 
         .hero-content h1 span {
-            color: #5773a0;          /* subtle accent — popular muted blue */
-            border-bottom: 2px solid #e2e9f3;
+            color: #f5e56b;                       /* lemon cord signature */
+            border-bottom: 2px solid #3a4a5e;
         }
 
         .hero-sub {
-            font-size: 18px;
-            color: #475569;
+            font-size: 17px;
+            color: #b0c0d0;
             max-width: 500px;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
         .cta-group {
             display: flex;
-            gap: 20px;
+            flex-wrap: wrap;
+            gap: 16px;
             align-items: center;
         }
 
         .btn-primary {
-            background: #0f172a;
-            color: white;
+            background: #f5e56b;
+            color: #0b0f17;
             border: none;
-            padding: 14px 38px;
-            border-radius: 40px;
-            font-weight: 600;
+            padding: 14px 34px;
+            border-radius: 60px;
+            font-weight: 700;
             font-size: 16px;
             cursor: default;
-            transition: 0.15s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
-        }
-
-        .btn-primary:hover {
-            background: #1e2a44;
+            box-shadow: 0 10px 20px -8px rgba(245, 229, 107, 0.25);
+            transition: 0.1s;
+            border: 1px solid #ffefa0;
         }
 
         .btn-outline {
             background: transparent;
-            border: 1.5px solid #cbd5e1;
-            color: #1e293b;
-            padding: 14px 32px;
-            border-radius: 40px;
+            border: 1.5px solid #3e4d5f;
+            color: #e6edf5;
+            padding: 14px 30px;
+            border-radius: 60px;
             font-weight: 600;
             font-size: 16px;
             cursor: default;
-            transition: 0.15s;
+            backdrop-filter: blur(4px);
         }
 
-        .btn-outline:hover {
-            border-color: #94a3b8;
-            background: #f8fafc;
-        }
-
-        /* visual placeholder — minimal abstract representation */
+        /* visual / abstract totem — dark mode friendly */
         .hero-visual {
-            flex: 1;
-            background: #f2f5f9;
-            border-radius: 48px;
-            padding: 30px 20px 30px 20px;
+            background: #131b26;
+            border-radius: 40px;
+            padding: 36px 20px 32px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.04);
-            border: 1px solid #edf2f7;
+            border: 1px solid #2a3545;
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.8);
         }
 
         .totem-preview {
             display: flex;
             gap: 12px;
             align-items: flex-end;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .totem-block {
-            width: 48px;
-            background: white;
+            width: 42px;
+            background: #1f2a36;
             border-radius: 20px 20px 12px 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-            border: 1px solid #e0e8f0;
+            border: 1px solid #374553;
+            box-shadow: inset 0 -2px 4px #0a0e13;
         }
-
-        .block1 { height: 90px; }
-        .block2 { height: 130px; background: #f2f0ea; }
-        .block3 { height: 110px; }
-        .block4 { height: 150px; background: #eaeef5; }
-        .block5 { height: 80px; }
+        .block1 { height: 80px; background: #2c3a4b; }
+        .block2 { height: 120px; background: #324156; }
+        .block3 { height: 100px; background: #2f3f54; }
+        .block4 { height: 140px; background: #364a60; border: 1px solid #4c617b; }
+        .block5 { height: 70px; background: #253241; }
 
         .recolor-strip {
             display: flex;
-            gap: 12px;
-            margin-top: 10px;
+            gap: 16px;
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .color-dot {
-            width: 40px;
-            height: 40px;
-            border-radius: 40px;
-            border: 2px solid white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            width: 44px;
+            height: 44px;
+            border-radius: 44px;
+            border: 2px solid #1f2e3c;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.6);
         }
-
-        .dot1 { background: #2d4b6e; }
-        .dot2 { background: #ba8b5a; }
-        .dot3 { background: #5f7b9c; }
-        .dot4 { background: #d5b78c; }
-        .dot5 { background: #1e2f47; }
+        .dot1 { background: #5f7fb0; }
+        .dot2 { background: #dba875; }
+        .dot3 { background: #e5c56b; }  /* lemon family */
+        .dot4 { background: #c07c5a; }
+        .dot5 { background: #3f5b82; }
 
         .visual-caption {
-            margin-top: 28px;
-            color: #566b82;
+            margin-top: 32px;
+            color: #9eb0c6;
             font-size: 14px;
             font-weight: 500;
-            letter-spacing: 0.3px;
         }
 
-        /* social proof / companies (minimal, popular style) */
+        /* trust row — mobile wrap */
         .trust-bar {
-            padding: 40px 0 20px;
-            border-top: 1px solid #ecf1f7;
+            padding: 30px 0 20px;
+            border-top: 1px solid #1e2a35;
         }
-
         .trust-logos {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
-            gap: 30px 10px;
-            opacity: 0.65;
-            color: #566b82;
+            justify-content: center;
+            gap: 20px 25px;
+            color: #9eb3c9;
             font-weight: 500;
-            font-size: 15px;
-        }
-
-        .trust-logos span {
-            color: #3f5570;
-            background: #f0f4fa;
-            padding: 4px 16px;
-            border-radius: 40px;
             font-size: 14px;
         }
-
-        /* feature section – minimal, cardless, just bold type */
-        .features {
-            padding: 90px 0 70px;
+        .trust-logos span {
+            background: #18212b;
+            padding: 5px 20px;
+            border-radius: 60px;
+            border: 1px solid #29384a;
         }
 
+        /* features */
+        .features {
+            padding: 70px 0 50px;
+        }
         .section-label {
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 13px;
-            color: #62748c;
+            letter-spacing: 1.8px;
+            font-size: 12px;
+            color: #9fb0c6;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 28px;
         }
-
         .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 40px;
         }
-
         .feature-item h3 {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: 600;
-            color: #0f172a;
+            color: #ffffff;
             margin-bottom: 10px;
         }
-
         .feature-item p {
-            color: #475569;
+            color: #b1c3d6;
             font-size: 16px;
-            max-width: 300px;
+            max-width: 320px;
         }
 
-        /* middle banner – popular soft card */
+        /* banner dark card */
         .banner {
-            background: #f7fafd;
+            background: #111b24;
             border-radius: 36px;
-            padding: 60px 48px;
-            margin: 40px 0 80px;
-            border: 1px solid #e1eaf1;
+            padding: 48px 28px;
+            margin: 30px 0 70px;
+            border: 1px solid #273547;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
+            flex-direction: column;
+            gap: 32px;
+            align-items: flex-start;
         }
-
         .banner h2 {
             font-size: 32px;
             font-weight: 600;
             letter-spacing: -0.02em;
-            color: #0f172a;
-            max-width: 500px;
+            color: #ffffff;
         }
-
         .banner h2 span {
-            color: #5773a0;
+            color: #f5e56b;
         }
-
         .banner-cta {
-            background: white;
+            background: #1e2b39;
             padding: 14px 40px;
             border-radius: 60px;
-            font-weight: 600;
-            color: #0f172a;
-            box-shadow: 0 6px 16px rgba(0,0,0,0.02);
-            border: 1px solid #cbdae9;
+            font-weight: 700;
+            color: #ecf3fe;
+            border: 1px solid #3d506a;
             cursor: default;
-            transition: 0.1s;
+            font-size: 16px;
         }
 
-        .banner-cta:hover {
-            background: #f5f9ff;
-        }
-
-        /* footer – minimal, border */
-        .site-footer {
-            border-top: 1px solid #e9edf4;
-            padding: 48px 0 40px;
+        /* extra minimal swatches */
+        .mini-palette {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            border-top: 1px solid #202b36;
+            padding-top: 48px;
             margin-top: 20px;
         }
+        .pal-item {
+            flex: 1 1 140px;
+        }
+        .pal-item .title {
+            font-weight: 700;
+            color: #cedff2;
+            margin-bottom: 16px;
+        }
+        .pal-color-strip {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .chip {
+            background: #1b2938;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            border: 1px solid #364a60;
+            color: #cbdae9;
+        }
+        .anim-blocks {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .anim-blocks div {
+            width: 30px; height: 30px;
+            background: #253950;
+            border-radius: 10px;
+            border: 1px solid #3d5470;
+        }
+        .export-text {
+            color: #b6cbe5;
+            font-weight: 500;
+        }
 
+        /* footer dark */
+        .site-footer {
+            border-top: 1px solid #1f2b36;
+            padding: 42px 0 36px;
+        }
         .footer-inner {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
+            gap: 28px;
+            text-align: center;
         }
-
         .footer-copy {
-            color: #64748b;
+            color: #889db6;
             font-size: 14px;
         }
-
         .footer-links {
             display: flex;
-            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
         }
-
         .footer-links a {
             text-decoration: none;
-            color: #334155;
+            color: #c7d8ec;
             font-weight: 500;
             font-size: 14px;
         }
 
-        .footer-links a:hover {
-            color: #0f172a;
+        /* tablet / desktop refinements */
+        @media (min-width: 700px) {
+            .container { padding: 0 40px; }
+            .hero-grid { 
+                flex-direction: row; 
+                align-items: center;
+            }
+            .hero-content h1 { font-size: 52px; }
+            .features-grid { 
+                flex-direction: row; 
+                gap: 60px;
+            }
+            .banner { 
+                flex-direction: row; 
+                justify-content: space-between; 
+                align-items: center; 
+                padding: 56px 52px;
+            }
+            .footer-inner { 
+                flex-direction: row; 
+                justify-content: space-between; 
+                text-align: left; 
+            }
+            .mobile-menu-icon { display: none; }
+            .nav-links {
+                display: flex;
+                gap: 30px;
+            }
+            .nav-links a {
+                text-decoration: none;
+                color: #c0d0e5;
+                font-weight: 500;
+                font-size: 15px;
+            }
+            .header-inner { flex-wrap: nowrap; }
         }
 
-        /* responsive touches */
-        @media (max-width: 800px) {
-            .hero-grid { flex-direction: column; }
-            .features-grid { grid-template-columns: 1fr; }
-            .header-inner { flex-wrap: wrap; gap: 15px; }
-            .nav-links { display: none; }  /* minimal demo, hide on mobile */
-            .hero-content h1 { font-size: 42px; }
+        @media (min-width: 1024px) {
+            .hero-content h1 { font-size: 60px; }
+        }
+
+        /* interactive simulation (non-click, just demo) */
+        .btn-primary, .btn-outline, .banner-cta, .header-cta {
+            cursor: default;
         }
     </style>
 </head>
@@ -410,34 +456,40 @@
     <header class="site-header">
         <div class="container header-inner">
             <div class="logo-area">
-                <div class="logo-mark">◬</div>
-                <div class="logo-text">pack<span>recolorer</span> · <span>totem</span></div>
+                <div class="logo-mark">🍋</div>
+                <div class="logo-text">Lemon <span>Cord</span></div>
             </div>
+            <!-- desktop nav (hidden on mobile) -->
             <div class="nav-links">
-                <a href="#">Tools</a>
-                <a href="#">Gallery</a>
+                <a href="#">Studio</a>
+                <a href="#">Recolor</a>
+                <a href="#">Totems</a>
                 <a href="#">Pricing</a>
-                <a href="#">Docs</a>
             </div>
-            <div class="header-cta">Sign in →</div>
+            <!-- mobile icon (just visual) + cta -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="mobile-menu-icon" aria-label="menu">
+                    <span></span><span></span><span></span>
+                </div>
+                <div class="header-cta">open app</div>
+            </div>
         </div>
     </header>
 
     <main>
-        <!-- hero section -->
+        <!-- hero -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
-                    <div class="badge">✨ now with animation engine</div>
-                    <h1>Recolor packs,<br><span>build animated totems</span></h1>
-                    <p class="hero-sub">Minimal, powerful, and impossibly smooth. The first tool that fuses pack recolor with motion totems — designed for creators who refuse to compromise.</p>
+                    <div class="badge">🍋 fresh · pack + motion</div>
+                    <h1>Recolor anything,<br><span>animate totems</span></h1>
+                    <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace. Dark by default, powerful by design.</p>
                     <div class="cta-group">
-                        <span class="btn-primary">Start building →</span>
-                        <span class="btn-outline">Watch demo</span>
+                        <span class="btn-primary">Start free →</span>
+                        <span class="btn-outline">Watch video</span>
                     </div>
                 </div>
                 <div class="hero-visual">
-                    <!-- abstract totem + recolor elements -->
                     <div class="totem-preview">
                         <div class="totem-block block1"></div>
                         <div class="totem-block block2"></div>
@@ -452,76 +504,71 @@
                         <div class="color-dot dot4"></div>
                         <div class="color-dot dot5"></div>
                     </div>
-                    <div class="visual-caption">animated gradient · recolor in real time</div>
+                    <div class="visual-caption">real‑time recolor · 4K totems</div>
                 </div>
             </div>
         </section>
 
-        <!-- trust / minimal bar (popular websites always show social proof) -->
+        <!-- trust strip -->
         <div class="trust-bar">
             <div class="container trust-logos">
-                <span>✦  used by 500+ studios</span>
-                <span>⚡  figma plugin</span>
-                <span>◈  adobe partner</span>
-                <span>☁  ipo-ready workflow</span>
+                <span>✦  used by 1.2k+ studios</span>
+                <span>⚡  lottie ready</span>
+                <span>◈  design systems</span>
+                <span>🍋  lemon native</span>
             </div>
         </div>
 
-        <!-- features  -->
+        <!-- features -->
         <section class="features">
             <div class="container">
-                <div class="section-label"> /  core capabilities</div>
+                <div class="section-label">/  core studio</div>
                 <div class="features-grid">
                     <div class="feature-item">
-                        <h3>Pack recolor · 2 clicks</h3>
-                        <p>Match any palette instantly. Extract colors from images, gradients, or hex. No limits.</p>
+                        <h3>Pack recolor · instant</h3>
+                        <p>Extract, shift, replace. Any palette, any format. Keep your brand consistent across hundreds of assets.</p>
                     </div>
                     <div class="feature-item">
-                        <h3>Animated totem builder</h3>
-                        <p>Layered, loopable, procedural. Every totem becomes a motion asset — export to Lottie, JSON, GIF.</p>
+                        <h3>Animated totems</h3>
+                        <p>Layered motion, procedural easing. Export to Lottie, JSON, GIF, or WebM — all from one timeline.</p>
                     </div>
                     <div class="feature-item">
-                        <h3>Unlimited variants</h3>
-                        <p>Generate hundreds of branded colorways and totem animations without touching code.</p>
+                        <h3>Infinite variants</h3>
+                        <p>Generate colorways and totem animations in batches. Perfect for design ops and motion libraries.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- banner CTA soft -->
+        <!-- banner cta -->
         <div class="container">
             <div class="banner">
-                <h2>From static pack to <span>living totem</span> — in seconds.</h2>
-                <span class="banner-cta">Get started →</span>
+                <h2>Turn any pack into <span>living totems</span> — fast.</h2>
+                <span class="banner-cta">Open Lemon Cord →</span>
             </div>
         </div>
 
-        <!-- subtle extra section: how it looks minimal -->
-        <section style="padding: 20px 0 70px;">
-            <div class="container">
-                <div style="display: flex; gap: 40px; flex-wrap: wrap; justify-content: space-between; border-top: 1px solid #f0f4fa; padding-top: 50px;">
-                    <div style="max-width: 280px;">
-                        <div style="font-weight: 700; margin-bottom: 16px; color: #0f172a;">Color profiles</div>
-                        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                            <span style="background: #eef2f6; padding: 6px 18px; border-radius: 50px; font-size: 14px; color: #2a3f5e;">#0A2F44</span>
-                            <span style="background: #eef2f6; padding: 6px 18px; border-radius: 50px; font-size: 14px; color: #2a3f5e;">#2E5A7F</span>
-                            <span style="background: #eef2f6; padding: 6px 18px; border-radius: 50px; font-size: 14px; color: #2a3f5e;">#C48A5E</span>
-                            <span style="background: #eef2f6; padding: 6px 18px; border-radius: 50px; font-size: 14px; color: #2a3f5e;">#AABFD6</span>
-                        </div>
+        <!-- extra minimal studio info -->
+        <section style="padding: 10px 0 60px;">
+            <div class="container mini-palette">
+                <div class="pal-item">
+                    <div class="title">Color toolkit</div>
+                    <div class="pal-color-strip">
+                        <span class="chip">#F5E56B</span>
+                        <span class="chip">#2F455E</span>
+                        <span class="chip">#C1976A</span>
+                        <span class="chip">#A0B9D4</span>
                     </div>
-                    <div style="max-width: 280px;">
-                        <div style="font-weight: 700; margin-bottom: 16px; color: #0f172a;">Totem animation</div>
-                        <div style="display: flex; gap: 8px;">
-                            <span style="width: 30px; height: 30px; background: #dbeafe; border-radius: 12px;"></span>
-                            <span style="width: 40px; height: 40px; background: #b9d0f0; border-radius: 16px;"></span>
-                            <span style="width: 30px; height: 30px; background: #8aa9d1; border-radius: 10px;"></span>
-                            <span style="width: 20px; height: 20px; background: #c0d3f0; border-radius: 8px;"></span>
-                        </div>
+                </div>
+                <div class="pal-item">
+                    <div class="title">Totem animation</div>
+                    <div class="anim-blocks">
+                        <div></div><div></div><div></div><div></div>
                     </div>
-                    <div style="max-width: 280px;">
-                        <div style="font-weight: 700; margin-bottom: 16px; color: #0f172a;">Export presets</div>
-                        <div style="color: #617b9b;">.fig · .svg · .lottie · .mp4</div>
-                    </div>
+                </div>
+                <div class="pal-item">
+                    <div class="title">Export</div>
+                    <div class="export-text">.lottie .json .mp4 .css</div>
                 </div>
             </div>
         </section>
@@ -529,16 +576,14 @@
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <div class="footer-copy">© 2025 Pack Recolorer & Totem — built for makers</div>
+            <div class="footer-copy">© 2025 Lemon Cord — dark studio for pack & totem</div>
             <div class="footer-links">
-                <a href="#">Terms</a>
-                <a href="#">Privacy</a>
-                <a href="#">Twitter</a>
-                <a href="#">Contact</a>
+                <a href="#">Docs</a>
+                <a href="#">Changelog</a>
+                <a href="#">Discord</a>
+                <a href="#">Legal</a>
             </div>
         </div>
     </footer>
-
-    <!-- subtle extra detail: no JS needed, purely static professional homepage -->
 </body>
 </html>
