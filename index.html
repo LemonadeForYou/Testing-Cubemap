@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, with STICKY / CONSTANT navigation bar -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -17,7 +16,7 @@
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #0b0f17;     /* rich dark base */
+            background-color: #0b0f17;
             color: #eef2f6;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
@@ -30,16 +29,15 @@
             padding: 0 24px;
         }
 
-        /* ----- STICKY HEADER (constant) ----- */
         .site-header {
             padding: 20px 0;
             border-bottom: 1px solid #1f2937;
             background-color: #0b0f17;
-            position: sticky;          /* ← makes it constant during scroll */
+            position: sticky;
             top: 0;
             z-index: 100;
             width: 100%;
-            backdrop-filter: blur(4px); /* subtle modern effect, optional */
+            backdrop-filter: blur(4px);
             transition: background 0.2s;
         }
 
@@ -60,7 +58,7 @@
         .logo-mark {
             width: 32px;
             height: 32px;
-            background: #f5e56b;                 /* lemon hint */
+            background: #f5e56b;
             color: #0b0f17;
             border-radius: 10px;
             display: flex;
@@ -83,12 +81,10 @@
             color: #9aa8b9;
         }
 
-        /* desktop navigation hidden on mobile */
         .nav-links {
             display: none;
         }
 
-        /* three-line icon (mobile menu) sits on the right */
         .mobile-menu-icon {
             display: flex;
             flex-direction: column;
@@ -106,9 +102,8 @@
             transition: 0.2s;
         }
 
-        /* ----- hero (mobile first) ----- */
         .hero {
-            padding: 56px 0 0px;        /* bottom padding removed – no big gap after caption */
+            padding: 56px 0 0px;
         }
 
         .hero-grid {
@@ -127,7 +122,7 @@
         }
 
         .hero-content h1 span {
-            color: #f5e56b;                       /* lemon cord signature */
+            color: #f5e56b;
             border-bottom: 2px solid #3a4a5e;
         }
 
@@ -138,16 +133,14 @@
             margin-bottom: 36px;
         }
 
-        /* CTA group - hidden as per previous request */
         .cta-group {
             display: none;
         }
 
-        /* visual / abstract totem — dark mode friendly */
         .hero-visual {
             background: #131b26;
             border-radius: 40px;
-            padding: 36px 20px 24px;     /* reduced bottom padding from 32px → 24px to tighten */
+            padding: 36px 20px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -190,23 +183,21 @@
         }
         .dot1 { background: #5f7fb0; }
         .dot2 { background: #dba875; }
-        .dot3 { background: #e5c56b; }  /* lemon family */
+        .dot3 { background: #e5c56b; }
         .dot4 { background: #c07c5a; }
         .dot5 { background: #3f5b82; }
 
         .visual-caption {
-            margin-top: 24px;            /* reduced from 32px → 24px */
+            margin-top: 24px;
             color: #9eb0c6;
             font-size: 14px;
             font-weight: 500;
         }
 
-        /* trust bar - hidden */
         .trust-bar {
             display: none;
         }
 
-        /* footer */
         .site-footer {
             border-top: 1px solid #1f2b36;
             padding: 42px 0 36px;
@@ -235,7 +226,6 @@
             font-size: 14px;
         }
 
-        /* tablet / desktop refinements */
         @media (min-width: 700px) {
             .container { padding: 0 40px; }
             .hero-grid { 
@@ -265,25 +255,21 @@
             .hero-content h1 { font-size: 60px; }
         }
 
-        /* no leftover banner style */
     </style>
 </head>
 <body>
-    <!-- STICKY HEADER: always visible while scrolling -->
     <header class="site-header">
         <div class="container header-inner">
             <div class="logo-area">
                 <div class="logo-mark">🍋</div>
                 <div class="logo-text">Lemon <span>Cord</span></div>
             </div>
-            <!-- desktop nav (hidden on mobile) -->
             <div class="nav-links">
                 <a href="#">Studio</a>
                 <a href="#">Recolor</a>
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- three-line icon only (always visible on mobile, on desktop it's hidden) -->
             <div class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
             </div>
@@ -291,13 +277,12 @@
     </header>
 
     <main>
-        <!-- hero section (tightened visual caption spacing) -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
-                    <h1>Recolor anything,<br><span>animate totems</span></h1>
-                    <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace.</p>
-                    <div class="cta-group"></div> <!-- hidden -->
+                    <h1>Lemon Cord</h1>
+                    <p class="hero-sub">Lemon Cord lets you recolor Minecraft texture packs and transform GIFs into animated totems.</p>
+                    <div class="cta-group"></div>
                 </div>
                 <div class="hero-visual">
                     <div class="totem-preview">
@@ -319,13 +304,12 @@
             </div>
         </section>
 
-        <!-- extra spacing for scroll demonstration, so you can see the sticky effect -->
-        <div style="height: 20vh;"></div> <!-- slightly reduced to keep footer closer -->
+        <div style="height: 20vh;"></div>
     </main>
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <div class="footer-copy">© 2025 Lemon Cord. All rights reserved.</div>
+            <div class="footer-copy">© 2026 Lemon Cord. All rights reserved.</div>
             <div class="footer-links">
                 <a href="#">Changelog</a>
                 <a href="#">Discord</a>
