@@ -206,68 +206,11 @@
             display: none;
         }
 
-        /* features */
-        .features {
-            padding: 70px 0 50px;
-        }
-        .section-label {
-            text-transform: uppercase;
-            letter-spacing: 1.8px;
-            font-size: 12px;
-            color: #9fb0c6;
-            font-weight: 600;
-            margin-bottom: 28px;
-        }
-        .features-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-        .feature-item h3 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-        .feature-item p {
-            color: #b1c3d6;
-            font-size: 16px;
-            max-width: 320px;
-        }
+        /* ✂️ features section completely removed as requested */
 
-        /* banner dark card */
-        .banner {
-            background: #111b24;
-            border-radius: 36px;
-            padding: 48px 28px;
-            margin: 30px 0 70px;
-            border: 1px solid #273547;
-            display: flex;
-            flex-direction: column;
-            gap: 32px;
-            align-items: flex-start;
-        }
-        .banner h2 {
-            font-size: 32px;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-        }
-        .banner h2 span {
-            color: #f5e56b;
-        }
-        .banner-cta {
-            background: #1e2b39;
-            padding: 14px 40px;
-            border-radius: 60px;
-            font-weight: 700;
-            color: #ecf3fe;
-            border: 1px solid #3d506a;
-            cursor: default;
-            font-size: 16px;
-        }
+        /* banner cta removed – only extra spacing remains for sticky demo */
 
-        /* extra minimal section removed */
+        /* mini-palette removed */
         .mini-palette {
             display: none;
         }
@@ -309,16 +252,7 @@
                 align-items: center;
             }
             .hero-content h1 { font-size: 52px; }
-            .features-grid { 
-                flex-direction: row; 
-                gap: 60px;
-            }
-            .banner { 
-                flex-direction: row; 
-                justify-content: space-between; 
-                align-items: center; 
-                padding: 56px 52px;
-            }
+            /* features grid no longer exists, we keep only hero+footer */
             .footer-inner { 
                 flex-direction: row; 
                 justify-content: space-between; 
@@ -341,9 +275,7 @@
             .hero-content h1 { font-size: 60px; }
         }
 
-        .banner-cta {
-            cursor: default;
-        }
+        /* No leftover banner style needed */
     </style>
 </head>
 <body>
@@ -369,7 +301,7 @@
     </header>
 
     <main>
-        <!-- hero section -->
+        <!-- hero section (remains untouched) -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
@@ -397,34 +329,8 @@
             </div>
         </section>
 
-        <!-- features -->
-        <section class="features">
-            <div class="container">
-                <div class="section-label">/  core studio</div>
-                <div class="features-grid">
-                    <div class="feature-item">
-                        <h3>Pack recolor · instant</h3>
-                        <p>Extract, shift, replace. Any palette, any format. Keep your brand consistent across hundreds of assets.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Animated totems</h3>
-                        <p>Layered motion, procedural easing. Export to Lottie, JSON, GIF, or WebM — all from one timeline.</p>
-                    </div>
-                    <div class="feature-item">
-                        <h3>Infinite variants</h3>
-                        <p>Generate colorways and totem animations in batches. Perfect for design ops and motion libraries.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- banner cta -->
-        <div class="container">
-            <div class="banner">
-                <h2>Turn any pack into <span>living totems</span> — fast.</h2>
-                <span class="banner-cta">Open Lemon Cord →</span>
-            </div>
-        </div>
+        <!-- ✂️ features section fully removed -->
+        <!-- ✂️ banner section fully removed -->
 
         <!-- extra spacing for scroll demonstration, so you can see the sticky effect -->
         <div style="height: 30vh;"></div>
