@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-88">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,9 +81,8 @@
             color: #9aa8b9;
         }
 
-        /* Yellow "Cord" in the header logo */
-        .logo-text .cord-highlight {
-            color: #f5e56b;      /* lemon yellow */
+        .cord-highlight {
+            color: #f5e56b;
             font-weight: 700;
         }
 
@@ -99,6 +98,7 @@
             border: none;
             padding: 6px;
             margin-left: auto;
+            cursor: pointer;
         }
         .mobile-menu-icon span {
             width: 22px;
@@ -106,6 +106,42 @@
             background-color: #d1dbe8;
             border-radius: 3px;
             transition: 0.2s;
+        }
+
+        .mobile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: #0f1722;
+            border-bottom: 1px solid #2a3548;
+            border-top: 1px solid #1f2b36;
+            padding: 12px 24px;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.8);
+            z-index: 99;
+        }
+
+        .mobile-dropdown a {
+            color: #e0ecff;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 1px solid #253040;
+        }
+        .mobile-dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        #menu-toggle {
+            display: none;
+        }
+
+        #menu-toggle:checked ~ .mobile-dropdown {
+            display: flex;
         }
 
         .hero {
@@ -200,10 +236,6 @@
             font-weight: 500;
         }
 
-        .trust-bar {
-            display: none;
-        }
-
         .site-footer {
             border-top: 1px solid #1f2b36;
             padding: 42px 0 36px;
@@ -245,22 +277,27 @@
                 text-align: left; 
             }
             .mobile-menu-icon { display: none; }
+            #menu-toggle { display: none; }
+            .mobile-dropdown { display: none; }
             .nav-links {
                 display: flex;
-                gap: 30px;
+                gap: 36px;
             }
             .nav-links a {
                 text-decoration: none;
                 color: #c0d0e5;
                 font-weight: 500;
-                font-size: 15px;
+                font-size: 16px;
+                transition: color 0.15s;
+            }
+            .nav-links a:hover {
+                color: #f5e56b;
             }
         }
 
         @media (min-width: 1024px) {
             .hero-content h1 { font-size: 60px; }
         }
-
     </style>
 </head>
 <body>
@@ -270,14 +307,22 @@
                 <div class="logo-mark">🍋</div>
                 <div class="logo-text">Lemon <span class="cord-highlight">Cord</span></div>
             </div>
+
             <div class="nav-links">
-                <a href="#">Studio</a>
-                <a href="#">Recolor</a>
-                <a href="#">Totems</a>
-                <a href="#">Pricing</a>
+                <a href="#">Home</a>
+                <a href="#">Tools</a>
+                <a href="#">Texture Packs</a>
             </div>
-            <div class="mobile-menu-icon" aria-label="menu">
+
+            <input type="checkbox" id="menu-toggle" style="display: none;">
+            <label for="menu-toggle" class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
+            </label>
+
+            <div class="mobile-dropdown">
+                <a href="#">Home</a>
+                <a href="#">Tools</a>
+                <a href="#">Texture Packs</a>
             </div>
         </div>
     </header>
@@ -315,7 +360,7 @@
 
     <footer class="site-footer">
         <div class="container footer-inner">
-            <div class="footer-copy">© 2026 Lemon Cord. All rights reserved.</div>
+            <div class="footer-copy">© 2025 Lemon Cord. All rights reserved.</div>
             <div class="footer-links">
                 <a href="#">Changelog</a>
                 <a href="#">Discord</a>
