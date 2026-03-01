@@ -108,7 +108,7 @@
 
         /* ----- hero (mobile first) ----- */
         .hero {
-            padding: 56px 0 40px;
+            padding: 56px 0 0px;        /* bottom padding removed – no big gap after caption */
         }
 
         .hero-grid {
@@ -147,7 +147,7 @@
         .hero-visual {
             background: #131b26;
             border-radius: 40px;
-            padding: 36px 20px 32px;
+            padding: 36px 20px 24px;     /* reduced bottom padding from 32px → 24px to tighten */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -195,7 +195,7 @@
         .dot5 { background: #3f5b82; }
 
         .visual-caption {
-            margin-top: 32px;
+            margin-top: 24px;            /* reduced from 32px → 24px */
             color: #9eb0c6;
             font-size: 14px;
             font-weight: 500;
@@ -203,15 +203,6 @@
 
         /* trust bar - hidden */
         .trust-bar {
-            display: none;
-        }
-
-        /* ✂️ features section completely removed as requested */
-
-        /* banner cta removed – only extra spacing remains for sticky demo */
-
-        /* mini-palette removed */
-        .mini-palette {
             display: none;
         }
 
@@ -252,7 +243,6 @@
                 align-items: center;
             }
             .hero-content h1 { font-size: 52px; }
-            /* features grid no longer exists, we keep only hero+footer */
             .footer-inner { 
                 flex-direction: row; 
                 justify-content: space-between; 
@@ -275,7 +265,7 @@
             .hero-content h1 { font-size: 60px; }
         }
 
-        /* No leftover banner style needed */
+        /* no leftover banner style */
     </style>
 </head>
 <body>
@@ -301,7 +291,7 @@
     </header>
 
     <main>
-        <!-- hero section (remains untouched) -->
+        <!-- hero section (tightened visual caption spacing) -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
@@ -329,11 +319,8 @@
             </div>
         </section>
 
-        <!-- ✂️ features section fully removed -->
-        <!-- ✂️ banner section fully removed -->
-
         <!-- extra spacing for scroll demonstration, so you can see the sticky effect -->
-        <div style="height: 30vh;"></div>
+        <div style="height: 20vh;"></div> <!-- slightly reduced to keep footer closer -->
     </main>
 
     <footer class="site-footer">
