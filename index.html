@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, mobile-first, with requested edits -->
+    <!-- Dark mode, minimal, professional, mobile-first, with final tweaks: badge removed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
             padding: 0 24px;
         }
 
-        /* site header - EDITED: removed the "open app" pill, and placed menu icon at the rightmost side */
+        /* site header */
         .site-header {
             padding: 20px 0;
             border-bottom: 1px solid #1f2937;
@@ -77,12 +77,12 @@
             color: #9aa8b9;
         }
 
-        /* desktop navigation hidden on mobile, but we keep the structure */
+        /* desktop navigation hidden on mobile */
         .nav-links {
             display: none;
         }
 
-        /* --- EDITED: three-line icon (mobile menu) now sits where "open app" used to be --- */
+        /* three-line icon (mobile menu) sits on the right */
         .mobile-menu-icon {
             display: flex;
             flex-direction: column;
@@ -90,7 +90,7 @@
             background: transparent;
             border: none;
             padding: 6px;
-            margin-left: auto;    /* pushes it to the right within flex container */
+            margin-left: auto;
         }
         .mobile-menu-icon span {
             width: 22px;
@@ -99,11 +99,6 @@
             border-radius: 3px;
             transition: 0.2s;
         }
-
-        /* header-cta class is REMOVED (no orange button). we keep only the icon.
-           but we also want to ensure no extra element appears.
-           the old .header-cta is completely deleted.
-           instead, we put the icon directly in HTML and style it. */
 
         /* ----- hero (mobile first) ----- */
         .hero {
@@ -116,18 +111,7 @@
             gap: 48px;
         }
 
-        .badge {
-            display: inline-block;
-            background: #1e2a37;
-            color: #d3e0f0;
-            font-size: 13px;
-            font-weight: 600;
-            padding: 4px 14px;
-            border-radius: 40px;
-            letter-spacing: 0.2px;
-            margin-bottom: 20px;
-            border: 1px solid #2e3b4b;
-        }
+        /* --- BADGE REMOVED --- no .badge class used in HTML now */
 
         .hero-content h1 {
             font-size: 44px;
@@ -148,12 +132,6 @@
             color: #b0c0d0;
             max-width: 500px;
             margin-bottom: 36px;
-        }
-
-        /* EDITED: removed the sentence "Dark by default, powerful by design." from the paragraph.
-           Now it ends with "minimal workspace." exactly as requested. */
-        .hero-sub {
-            /* text is modified directly in HTML */
         }
 
         .cta-group {
@@ -427,7 +405,6 @@
                 justify-content: space-between; 
                 text-align: left; 
             }
-            /* on desktop we keep the three-line icon hidden (or you could show a proper menu) */
             .mobile-menu-icon { display: none; }
             .nav-links {
                 display: flex;
@@ -448,7 +425,6 @@
         .btn-primary, .btn-outline, .banner-cta {
             cursor: default;
         }
-        /* no .header-cta remains */
     </style>
 </head>
 <body>
@@ -465,7 +441,7 @@
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- EDITED: only three-line icon remains, positioned to the right (no "open app" button) -->
+            <!-- three-line icon only (no button) -->
             <div class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
             </div>
@@ -473,13 +449,12 @@
     </header>
 
     <main>
-        <!-- hero -->
+        <!-- hero section - BADGE COMPLETELY REMOVED -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
-                    <div class="badge">🍋 fresh · pack + motion</div>
+                    <!-- the badge "🍋 fresh · pack + motion" is gone -->
                     <h1>Recolor anything,<br><span>animate totems</span></h1>
-                    <!-- EDITED: removed "Dark by default, powerful by design." exactly as requested -->
                     <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace.</p>
                     <div class="cta-group">
                         <span class="btn-primary">Start free →</span>
