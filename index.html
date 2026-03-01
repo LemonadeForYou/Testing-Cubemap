@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, mobile-first -->
+    <!-- Dark mode, minimal, professional, mobile-first, with requested edits -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -30,10 +30,10 @@
             padding: 0 24px;
         }
 
-        /* mobile first, then small tweaks for tablet/desktop */
+        /* site header - EDITED: removed the "open app" pill, and placed menu icon at the rightmost side */
         .site-header {
             padding: 20px 0;
-            border-bottom: 1px solid #1f2937;   /* subtle dark divider */
+            border-bottom: 1px solid #1f2937;
             background-color: #0b0f17;
         }
 
@@ -74,14 +74,15 @@
 
         .logo-text span {
             font-weight: 400;
-            color: #9aa8b9;                      /* muted grey-blue */
+            color: #9aa8b9;
         }
 
-        /* hide desktop nav on mobile, show hamburger icon (clean minimal) */
+        /* desktop navigation hidden on mobile, but we keep the structure */
         .nav-links {
             display: none;
         }
 
+        /* --- EDITED: three-line icon (mobile menu) now sits where "open app" used to be --- */
         .mobile-menu-icon {
             display: flex;
             flex-direction: column;
@@ -89,6 +90,7 @@
             background: transparent;
             border: none;
             padding: 6px;
+            margin-left: auto;    /* pushes it to the right within flex container */
         }
         .mobile-menu-icon span {
             width: 22px;
@@ -98,19 +100,10 @@
             transition: 0.2s;
         }
 
-        .header-cta {
-            background-color: #232e3f;
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 14px;
-            cursor: default;                      /* static demo */
-            letter-spacing: 0.2px;
-            border: 1px solid #334155;
-            white-space: nowrap;
-        }
+        /* header-cta class is REMOVED (no orange button). we keep only the icon.
+           but we also want to ensure no extra element appears.
+           the old .header-cta is completely deleted.
+           instead, we put the icon directly in HTML and style it. */
 
         /* ----- hero (mobile first) ----- */
         .hero {
@@ -155,6 +148,12 @@
             color: #b0c0d0;
             max-width: 500px;
             margin-bottom: 36px;
+        }
+
+        /* EDITED: removed the sentence "Dark by default, powerful by design." from the paragraph.
+           Now it ends with "minimal workspace." exactly as requested. */
+        .hero-sub {
+            /* text is modified directly in HTML */
         }
 
         .cta-group {
@@ -428,6 +427,7 @@
                 justify-content: space-between; 
                 text-align: left; 
             }
+            /* on desktop we keep the three-line icon hidden (or you could show a proper menu) */
             .mobile-menu-icon { display: none; }
             .nav-links {
                 display: flex;
@@ -439,17 +439,16 @@
                 font-weight: 500;
                 font-size: 15px;
             }
-            .header-inner { flex-wrap: nowrap; }
         }
 
         @media (min-width: 1024px) {
             .hero-content h1 { font-size: 60px; }
         }
 
-        /* interactive simulation (non-click, just demo) */
-        .btn-primary, .btn-outline, .banner-cta, .header-cta {
+        .btn-primary, .btn-outline, .banner-cta {
             cursor: default;
         }
+        /* no .header-cta remains */
     </style>
 </head>
 <body>
@@ -466,12 +465,9 @@
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- mobile icon (just visual) + cta -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <div class="mobile-menu-icon" aria-label="menu">
-                    <span></span><span></span><span></span>
-                </div>
-                <div class="header-cta">open app</div>
+            <!-- EDITED: only three-line icon remains, positioned to the right (no "open app" button) -->
+            <div class="mobile-menu-icon" aria-label="menu">
+                <span></span><span></span><span></span>
             </div>
         </div>
     </header>
@@ -483,7 +479,8 @@
                 <div class="hero-content">
                     <div class="badge">🍋 fresh · pack + motion</div>
                     <h1>Recolor anything,<br><span>animate totems</span></h1>
-                    <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace. Dark by default, powerful by design.</p>
+                    <!-- EDITED: removed "Dark by default, powerful by design." exactly as requested -->
+                    <p class="hero-sub">Lemon Cord brings fluid recoloring and totem animation into one minimal workspace.</p>
                     <div class="cta-group">
                         <span class="btn-primary">Start free →</span>
                         <span class="btn-outline">Watch video</span>
