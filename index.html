@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Lemon Cord · pack recolor & animated totems</title>
-    <!-- Dark mode, minimal, professional, with STICKY / CONSTANT navigation bar -->
+    <!-- Dark mode, minimal, professional, STICKY header + padding fixed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -27,20 +27,19 @@
             width: 100%;
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;               /* increased horizontal padding for breathing room */
         }
 
-        /* ----- STICKY HEADER (constant) ----- */
+        /* ----- STICKY HEADER (constant) with refined padding ----- */
         .site-header {
-            padding: 20px 0;
+            padding: 16px 0;                /* adjusted vertical padding: more balanced */
             border-bottom: 1px solid #1f2937;
             background-color: #0b0f17;
-            position: sticky;          /* ← makes it constant during scroll */
+            position: sticky;
             top: 0;
             z-index: 100;
             width: 100%;
-            backdrop-filter: blur(4px); /* subtle modern effect, optional */
-            transition: background 0.2s;
+            backdrop-filter: blur(4px);
         }
 
         .header-inner {
@@ -48,19 +47,19 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 16px;                      /* slightly increased gap */
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;                       /* fine-tuned */
         }
 
         .logo-mark {
-            width: 32px;
-            height: 32px;
-            background: #f5e56b;                 /* lemon hint */
+            width: 34px;                      /* slightly larger for better proportion */
+            height: 34px;
+            background: #f5e56b;
             color: #0b0f17;
             border-radius: 10px;
             display: flex;
@@ -73,7 +72,7 @@
 
         .logo-text {
             font-weight: 700;
-            font-size: 20px;
+            font-size: 21px;                   /* subtle increase */
             letter-spacing: -0.02em;
             color: #f0f4fa;
         }
@@ -83,19 +82,19 @@
             color: #9aa8b9;
         }
 
-        /* desktop navigation hidden on mobile */
+        /* desktop navigation */
         .nav-links {
             display: none;
         }
 
-        /* three-line icon (mobile menu) sits on the right */
+        /* three-line icon (mobile menu) */
         .mobile-menu-icon {
             display: flex;
             flex-direction: column;
             gap: 5px;
             background: transparent;
             border: none;
-            padding: 6px;
+            padding: 8px;                      /* more tap area */
             margin-left: auto;
         }
         .mobile-menu-icon span {
@@ -106,176 +105,170 @@
             transition: 0.2s;
         }
 
-        /* ----- hero (mobile first) ----- */
+        /* ----- hero (padding/margin refined) ----- */
         .hero {
-            padding: 56px 0 40px;
+            padding: 80px 0 60px;               /* increased top/bottom padding */
         }
 
         .hero-grid {
             display: flex;
             flex-direction: column;
-            gap: 48px;
+            gap: 60px;                           /* more space between text and visual */
         }
 
         .hero-content h1 {
-            font-size: 44px;
+            font-size: 48px;                      /* slightly bumped for impact */
             font-weight: 700;
             line-height: 1.1;
             letter-spacing: -0.02em;
             color: #ffffff;
-            margin-bottom: 20px;
+            margin-bottom: 24px;                   /* better spacing */
         }
 
         .hero-content h1 span {
-            color: #f5e56b;                       /* lemon cord signature */
+            color: #f5e56b;
             border-bottom: 2px solid #3a4a5e;
         }
 
         .hero-sub {
-            font-size: 17px;
+            font-size: 18px;                        /* slightly larger */
             color: #b0c0d0;
-            max-width: 500px;
-            margin-bottom: 36px;
+            max-width: 520px;
+            margin-bottom: 32px;                     /* adjusted */
         }
 
-        /* CTA group - hidden as per previous request */
+        /* CTA group - hidden as per request */
         .cta-group {
             display: none;
         }
 
-        /* visual / abstract totem — dark mode friendly */
+        /* visual / abstract totem */
         .hero-visual {
             background: #131b26;
-            border-radius: 40px;
-            padding: 36px 20px 32px;
+            border-radius: 48px;                     /* softer radius */
+            padding: 44px 28px 40px;                  /* increased internal padding */
             display: flex;
             flex-direction: column;
             align-items: center;
             border: 1px solid #2a3545;
-            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.8);
+            box-shadow: 0 30px 40px -16px rgba(0, 0, 0, 0.9);
         }
 
         .totem-preview {
             display: flex;
-            gap: 12px;
+            gap: 16px;                                 /* more gap between blocks */
             align-items: flex-end;
-            margin-bottom: 28px;
+            margin-bottom: 36px;
         }
 
         .totem-block {
-            width: 42px;
+            width: 48px;                               /* wider blocks */
             background: #1f2a36;
-            border-radius: 20px 20px 12px 12px;
+            border-radius: 24px 24px 14px 14px;
             border: 1px solid #374553;
             box-shadow: inset 0 -2px 4px #0a0e13;
         }
-        .block1 { height: 80px; background: #2c3a4b; }
-        .block2 { height: 120px; background: #324156; }
-        .block3 { height: 100px; background: #2f3f54; }
-        .block4 { height: 140px; background: #364a60; border: 1px solid #4c617b; }
-        .block5 { height: 70px; background: #253241; }
+        .block1 { height: 90px; background: #2c3a4b; }
+        .block2 { height: 135px; background: #324156; }
+        .block3 { height: 110px; background: #2f3f54; }
+        .block4 { height: 155px; background: #364a60; border: 1px solid #4c617b; }
+        .block5 { height: 85px; background: #253241; }
 
         .recolor-strip {
             display: flex;
-            gap: 16px;
+            gap: 20px;                                 /* bigger gap */
             flex-wrap: wrap;
             justify-content: center;
         }
         .color-dot {
-            width: 44px;
-            height: 44px;
-            border-radius: 44px;
+            width: 52px;                                /* larger dots */
+            height: 52px;
+            border-radius: 52px;
             border: 2px solid #1f2e3c;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.6);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.7);
         }
         .dot1 { background: #5f7fb0; }
         .dot2 { background: #dba875; }
-        .dot3 { background: #e5c56b; }  /* lemon family */
+        .dot3 { background: #e5c56b; }
         .dot4 { background: #c07c5a; }
         .dot5 { background: #3f5b82; }
 
         .visual-caption {
-            margin-top: 32px;
+            margin-top: 36px;
             color: #9eb0c6;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 500;
-        }
-
-        /* trust bar - hidden */
-        .trust-bar {
-            display: none;
+            letter-spacing: 0.2px;
         }
 
         /* features */
         .features {
-            padding: 70px 0 50px;
+            padding: 80px 0 60px;
         }
         .section-label {
             text-transform: uppercase;
-            letter-spacing: 1.8px;
-            font-size: 12px;
+            letter-spacing: 2px;
+            font-size: 13px;
             color: #9fb0c6;
             font-weight: 600;
-            margin-bottom: 28px;
+            margin-bottom: 32px;
         }
         .features-grid {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 48px;
         }
         .feature-item h3 {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .feature-item p {
             color: #b1c3d6;
-            font-size: 16px;
-            max-width: 320px;
+            font-size: 17px;
+            max-width: 340px;
+            line-height: 1.6;
         }
 
-        /* banner dark card */
+        /* banner */
         .banner {
             background: #111b24;
-            border-radius: 36px;
-            padding: 48px 28px;
-            margin: 30px 0 70px;
+            border-radius: 44px;
+            padding: 60px 48px;
+            margin: 40px 0 80px;
             border: 1px solid #273547;
             display: flex;
             flex-direction: column;
-            gap: 32px;
+            gap: 36px;
             align-items: flex-start;
         }
         .banner h2 {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 600;
             letter-spacing: -0.02em;
             color: #ffffff;
+            line-height: 1.2;
         }
         .banner h2 span {
             color: #f5e56b;
         }
         .banner-cta {
             background: #1e2b39;
-            padding: 14px 40px;
+            padding: 16px 48px;
             border-radius: 60px;
             font-weight: 700;
             color: #ecf3fe;
             border: 1px solid #3d506a;
             cursor: default;
-            font-size: 16px;
-        }
-
-        /* extra minimal section removed */
-        .mini-palette {
-            display: none;
+            font-size: 17px;
+            transition: 0.1s;
         }
 
         /* footer */
         .site-footer {
             border-top: 1px solid #1f2b36;
-            padding: 42px 0 36px;
+            padding: 48px 0 44px;
         }
         .footer-inner {
             display: flex;
@@ -286,38 +279,41 @@
         }
         .footer-copy {
             color: #889db6;
-            font-size: 14px;
+            font-size: 15px;
         }
         .footer-links {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 32px;
+            gap: 40px;
         }
         .footer-links a {
             text-decoration: none;
             color: #c7d8ec;
             font-weight: 500;
-            font-size: 14px;
+            font-size: 15px;
         }
 
-        /* tablet / desktop refinements */
+        /* tablet / desktop */
         @media (min-width: 700px) {
-            .container { padding: 0 40px; }
+            .container { padding: 0 48px; }            /* wider horizontal padding */
             .hero-grid { 
                 flex-direction: row; 
                 align-items: center;
+                gap: 70px;
             }
-            .hero-content h1 { font-size: 52px; }
+            .hero-content h1 { font-size: 56px; }
+            .hero-content { flex: 1.1; }
+            .hero-visual { flex: 1; }
             .features-grid { 
                 flex-direction: row; 
-                gap: 60px;
+                gap: 70px;
             }
             .banner { 
                 flex-direction: row; 
                 justify-content: space-between; 
                 align-items: center; 
-                padding: 56px 52px;
+                padding: 64px 60px;
             }
             .footer-inner { 
                 flex-direction: row; 
@@ -327,41 +323,45 @@
             .mobile-menu-icon { display: none; }
             .nav-links {
                 display: flex;
-                gap: 30px;
+                gap: 36px;
             }
             .nav-links a {
                 text-decoration: none;
                 color: #c0d0e5;
                 font-weight: 500;
-                font-size: 15px;
+                font-size: 16px;
             }
         }
 
         @media (min-width: 1024px) {
-            .hero-content h1 { font-size: 60px; }
+            .hero-content h1 { font-size: 64px; }
+            .hero-content { flex: 1.2; }
+            .container { padding: 0 64px; }
+            .hero { padding: 100px 0 70px; }
         }
 
         .banner-cta {
             cursor: default;
         }
+
+        /* small extra touch: no leftover spacing issues */
+        .trust-bar, .mini-palette { display: none; }
     </style>
 </head>
 <body>
-    <!-- STICKY HEADER: always visible while scrolling -->
+    <!-- STICKY HEADER with corrected padding -->
     <header class="site-header">
         <div class="container header-inner">
             <div class="logo-area">
                 <div class="logo-mark">🍋</div>
                 <div class="logo-text">Lemon <span>Cord</span></div>
             </div>
-            <!-- desktop nav (hidden on mobile) -->
             <div class="nav-links">
                 <a href="#">Studio</a>
                 <a href="#">Recolor</a>
                 <a href="#">Totems</a>
                 <a href="#">Pricing</a>
             </div>
-            <!-- three-line icon only (always visible on mobile, on desktop it's hidden) -->
             <div class="mobile-menu-icon" aria-label="menu">
                 <span></span><span></span><span></span>
             </div>
@@ -369,7 +369,7 @@
     </header>
 
     <main>
-        <!-- hero section -->
+        <!-- hero section - refined spacing -->
         <section class="hero">
             <div class="container hero-grid">
                 <div class="hero-content">
@@ -397,7 +397,7 @@
             </div>
         </section>
 
-        <!-- features -->
+        <!-- features with balanced spacing -->
         <section class="features">
             <div class="container">
                 <div class="section-label">/  core studio</div>
@@ -418,7 +418,7 @@
             </div>
         </section>
 
-        <!-- banner cta -->
+        <!-- banner cta - improved padding inside -->
         <div class="container">
             <div class="banner">
                 <h2>Turn any pack into <span>living totems</span> — fast.</h2>
@@ -426,8 +426,8 @@
             </div>
         </div>
 
-        <!-- extra spacing for scroll demonstration, so you can see the sticky effect -->
-        <div style="height: 30vh;"></div>
+        <!-- scroll spacing to show sticky effect (optional but nice) -->
+        <div style="height: 20vh;"></div>
     </main>
 
     <footer class="site-footer">
