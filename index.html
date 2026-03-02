@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
-  <!-- Font Awesome for icons (same as FruitLabs) -->
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Inter (same as FruitLabs) -->
+  <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -21,7 +21,7 @@
     }
 
     body {
-      background: #0b0e14; /* same dark background */
+      background: #0b0e14;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
       display: flex;
       justify-content: center;
@@ -30,7 +30,39 @@
       color: #eef3fc;
     }
 
-    /* main container — exact same vibe, renamed */
+    /* Page Transition Overlay - EXACTLY from FruitLabs */
+    .page-transition {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #ffb347;
+      z-index: 9999;
+      pointer-events: none;
+      transform: scaleY(0);
+      transform-origin: top;
+    }
+
+    .page-transition.animate-in {
+      animation: slideIn 0.5s forwards;
+    }
+
+    .page-transition.animate-out {
+      animation: slideOut 0.5s forwards;
+    }
+
+    @keyframes slideIn {
+      from { transform: scaleY(1); }
+      to { transform: scaleY(0); }
+    }
+
+    @keyframes slideOut {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+
+    /* main container */
     .slideshow-container {
       max-width: 600px;
       width: 100%;
@@ -39,8 +71,8 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      background: #16212e; /* FruitLabs dark blue-gray */
-      border: 2px solid #ffb347; /* FruitLabs orange */
+      background: #16212e;
+      border: 2px solid #ffb347;
       border-radius: 24px;
       overflow: hidden;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
@@ -122,9 +154,12 @@
     .first-slide-content p {
       color: #8fadc7;
       font-size: 1.1rem;
+      line-height: 1.5;
+      max-width: 350px;
+      margin: 1rem auto 0;
     }
 
-    /* --- category header (robux options) --- */
+    /* --- category header --- */
     .category-header {
       text-align: center;
       margin-bottom: 1.5rem;
@@ -138,7 +173,7 @@
       text-transform: uppercase;
     }
 
-    /* robux grid — like fruit-grid but 3 columns? i'll do 2 for clarity but you can change */
+    /* robux grid */
     .robux-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -171,7 +206,6 @@
       box-shadow: 0 0 15px rgba(255, 180, 71, 0.3);
     }
 
-    /* robux icon/logo */
     .robux-icon {
       width: 70px;
       height: 70px;
@@ -235,7 +269,7 @@
       font-weight: 700;
     }
 
-    /* last slide — username & confirm */
+    /* last slide */
     .last-slide-content {
       min-height: 100%;
       display: flex;
@@ -368,7 +402,7 @@
       pointer-events: none;
     }
 
-    /* loading overlay — simplified but keeps orange/black theme */
+    /* loading overlay */
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -431,41 +465,46 @@
   </style>
 </head>
 <body>
+  <!-- Page Transition Overlay - exact copy from FruitLabs -->
+  <div class="page-transition" id="pageTransition"></div>
+
   <div class="slideshow-container">
     <!-- slides area -->
     <div class="slides-area">
-      <!-- SLIDE 0: Intro / Welcome (like FruitLabs first slide) -->
+      <!-- SLIDE 0: Intro / Welcome - updated text and removed arrow -->
       <div class="slide active" id="slide-0">
         <div class="first-slide-content">
-          <h1>RBX<span>LABS</span></h1>
-          <p style="margin-top: 1rem; font-size: 1.2rem;">pick your robux</p>
-          <i class="fas fa-arrow-down" style="color: #ffb347; font-size: 2rem; margin-top: 2rem;"></i>
+          <h1>RBX <span>LABS</span></h1>
+          <p style="margin-top: 1.5rem; font-size: 1.2rem; font-weight: 500;">
+            Select any amount of Robux<br>and get it instantly in Roblox.
+          </p>
+          <!-- orange arrow REMOVED -->
         </div>
       </div>
 
-      <!-- SLIDE 1: Robux options (range 0-1000, 8 options) -->
+      <!-- SLIDE 1: Robux options -->
       <div class="slide" id="slide-1">
         <div class="category-header">
           <h2>✨ choose amount</h2>
         </div>
 
-        <!-- selected count indicator (mirrors fruit) -->
+        <!-- selected count indicator -->
         <div class="selected-count-container" style="margin-left: auto; margin-right: auto; display: block; width: fit-content;">
           <span class="selected-count-text">ROBUX SELECTED</span>
           <span class="selected-count-number" id="selectedCount">0</span>
         </div>
 
-        <!-- robux grid - 8 options between 0 and 1000 -->
+        <!-- robux grid - 8 options -->
         <div class="robux-grid" id="robuxGrid">
-          <!-- will be filled by JS -->
+          <!-- filled by JS -->
         </div>
       </div>
 
-      <!-- SLIDE 2: Username + confirm (like last slide) -->
+      <!-- SLIDE 2: Username + confirm -->
       <div class="slide" id="slide-2">
         <div class="last-slide-content">
           <div class="slide-header">
-            <h1>RBX<span>LABS</span></h1>
+            <h1>RBX <span>LABS</span></h1>
             <p>almost done</p>
           </div>
 
@@ -481,7 +520,7 @@
       </div>
     </div>
 
-    <!-- bottom navigation (exact same as fruit labs) -->
+    <!-- bottom navigation -->
     <div class="nav-buttons-container">
       <div class="nav-buttons">
         <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
@@ -490,7 +529,7 @@
     </div>
   </div>
 
-  <!-- loading overlay (simplified but keeps aesthetic) -->
+  <!-- loading overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
@@ -505,17 +544,36 @@
       const robuxOptions = [0, 50, 100, 200, 350, 500, 750, 1000];
 
       // state
-      let currentSlide = 0;          // 0,1,2
+      let currentSlide = 0;
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
+      const pageTransition = document.getElementById('pageTransition');
 
-      // selected robux (initially none, but we can set a default or null)
-      let selectedRobux = null;       // store the amount
+      let selectedRobux = null;
       const selectedCountSpan = document.getElementById('selectedCount');
-
-      // robux grid element
       const robuxGrid = document.getElementById('robuxGrid');
+
+      // --- page transition functions (exact from FruitLabs) ---
+      function animatePageTransition(direction, callback) {
+        // direction: 'in' or 'out'
+        if (direction === 'out') {
+          pageTransition.classList.remove('animate-in');
+          pageTransition.classList.add('animate-out');
+          
+          setTimeout(() => {
+            pageTransition.classList.remove('animate-out');
+            if (callback) callback();
+          }, 500); // match animation duration
+        } else {
+          pageTransition.classList.add('animate-in');
+          
+          setTimeout(() => {
+            pageTransition.classList.remove('animate-in');
+            if (callback) callback();
+          }, 500);
+        }
+      }
 
       // --- render robux cards ---
       function renderRobuxCards() {
@@ -538,55 +596,60 @@
         document.querySelectorAll('.robux-card').forEach(card => {
           card.addEventListener('click', () => {
             const amount = parseInt(card.dataset.amount, 10);
-            // if same, we could deselect? but fruit style keeps selected one, we allow one selection
-            if (selectedRobux === amount) {
-              // optional: allow deselect? we'll keep it simple, can't deselect but you can pick another
-              // but fruit allows toggling? actually fruit allows multiple selection? no, fruit labs is multiple fruits? 
-              // but here we want single robux pick. I'll make it single-select: clicking a new one updates.
-            }
             selectedRobux = amount;
             updateSelectedCount();
-            renderRobuxCards(); // re-render to show selected class
+            renderRobuxCards();
           });
         });
       }
 
-      // update the selected count display (mirrors fruit labs)
+      // update selected count
       function updateSelectedCount() {
         if (selectedCountSpan) {
           selectedCountSpan.innerText = selectedRobux !== null ? '1' : '0';
         }
       }
 
-      // --- slide navigation functions ---
-      function updateSlideVisibility() {
-        slides.forEach((slide, index) => {
-          if (index === currentSlide) {
-            slide.classList.add('active');
+      // --- slide navigation with transition ---
+      function goToSlide(newIndex) {
+        if (newIndex === currentSlide) return;
+        
+        const direction = newIndex > currentSlide ? 'next' : 'prev';
+        
+        // play transition out
+        animatePageTransition('out', () => {
+          // change slide
+          slides.forEach((slide, index) => {
+            if (index === newIndex) {
+              slide.classList.add('active');
+            } else {
+              slide.classList.remove('active');
+            }
+          });
+          
+          currentSlide = newIndex;
+          
+          // update buttons
+          prevBtn.disabled = (currentSlide === 0);
+          if (currentSlide === slides.length - 1) {
+            nextBtn.innerHTML = `finish <i class="fas fa-check"></i>`;
           } else {
-            slide.classList.remove('active');
+            nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
           }
+          
+          // play transition in
+          animatePageTransition('in');
         });
-
-        // prev/next buttons
-        prevBtn.disabled = (currentSlide === 0);
-        if (currentSlide === slides.length - 1) {
-          nextBtn.innerHTML = `finish <i class="fas fa-check"></i>`;
-        } else {
-          nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
-        }
       }
 
       // validation before moving forward
       function canGoNext() {
-        if (currentSlide === 0) return true; // intro always can go next
+        if (currentSlide === 0) return true;
         if (currentSlide === 1) {
-          // must have selected a robux amount
           return selectedRobux !== null;
         }
         if (currentSlide === 2) {
-          // last slide: need username (but we handle via confirm)
-          return true; // we don't block next on last, because finish triggers confirm
+          return true;
         }
         return true;
       }
@@ -594,7 +657,6 @@
       // next action
       function handleNext() {
         if (currentSlide === slides.length - 1) {
-          // on last slide: trigger confirm
           confirmOrder();
           return;
         }
@@ -604,22 +666,17 @@
           return;
         }
 
-        // move to next slide
-        if (currentSlide < slides.length - 1) {
-          currentSlide++;
-          updateSlideVisibility();
-        }
+        goToSlide(currentSlide + 1);
       }
 
       // prev action
       function handlePrev() {
         if (currentSlide > 0) {
-          currentSlide--;
-          updateSlideVisibility();
+          goToSlide(currentSlide - 1);
         }
       }
 
-      // confirm (shows loading overlay)
+      // confirm order
       function confirmOrder() {
         const usernameInput = document.getElementById('robloxUser');
         const username = usernameInput.value.trim();
@@ -628,10 +685,8 @@
           return;
         }
         if (selectedRobux === null) {
-          // fallback: if somehow they get here without selection, go back
           alert('Please select a robux amount on the previous page.');
-          currentSlide = 1;
-          updateSlideVisibility();
+          goToSlide(1);
           return;
         }
 
@@ -643,24 +698,22 @@
         }
         overlay.classList.add('active');
 
-        // simulate preparation (like fruit labs had)
+        // simulate preparation
         setTimeout(() => {
           overlay.classList.remove('active');
           alert(`Prepared ${selectedRobux} Robux for ${username} (demo)`);
-          // you could reset or stay
         }, 2500);
       }
 
       // --- initialize ---
       renderRobuxCards();
       updateSelectedCount();
-      updateSlideVisibility();
 
       // button listeners
       prevBtn.addEventListener('click', handlePrev);
       nextBtn.addEventListener('click', handleNext);
 
-      // optional: if user presses enter on username field, trigger confirm
+      // enter key on username
       document.getElementById('robloxUser')?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
