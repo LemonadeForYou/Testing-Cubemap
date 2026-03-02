@@ -1,12 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -30,7 +29,6 @@
       color: #eef3fc;
     }
 
-    /* Page Transition Overlay - EXACTLY from FruitLabs */
     .page-transition {
       position: fixed;
       top: 0;
@@ -62,7 +60,6 @@
       to { transform: scaleY(1); }
     }
 
-    /* main container */
     .slideshow-container {
       max-width: 600px;
       width: 100%;
@@ -78,14 +75,12 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
     }
 
-    /* slides area */
     .slides-area {
       flex: 1;
       position: relative;
       overflow: hidden;
     }
 
-    /* slide base */
     .slide {
       position: absolute;
       top: 0;
@@ -109,7 +104,6 @@
       visibility: visible;
     }
 
-    /* scrollbar */
     .slide::-webkit-scrollbar {
       width: 8px;
     }
@@ -122,7 +116,6 @@
       border-radius: 4px;
     }
 
-    /* --- first slide (welcome) --- */
     .first-slide-content {
       background: #16212e;
       border: 2px solid #ffb347;
@@ -159,7 +152,6 @@
       margin: 1rem auto 0;
     }
 
-    /* --- category header --- */
     .category-header {
       text-align: center;
       margin-bottom: 1.5rem;
@@ -173,7 +165,6 @@
       text-transform: uppercase;
     }
 
-    /* robux grid */
     .robux-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -241,7 +232,6 @@
       border-color: #ffb347;
     }
 
-    /* selected count container */
     .selected-count-container {
       position: sticky;
       top: 0;
@@ -269,7 +259,6 @@
       font-weight: 700;
     }
 
-    /* last slide */
     .last-slide-content {
       min-height: 100%;
       display: flex;
@@ -358,7 +347,6 @@
       transform: scale(1.02);
     }
 
-    /* navigation buttons */
     .nav-buttons-container {
       padding: 1rem 1.5rem;
       border-top: 2px solid #ffb347;
@@ -402,7 +390,6 @@
       pointer-events: none;
     }
 
-    /* loading overlay */
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -465,42 +452,31 @@
   </style>
 </head>
 <body>
-  <!-- Page Transition Overlay - exact copy from FruitLabs -->
   <div class="page-transition" id="pageTransition"></div>
 
   <div class="slideshow-container">
-    <!-- slides area -->
     <div class="slides-area">
-      <!-- SLIDE 0: Intro / Welcome - updated text and removed arrow -->
       <div class="slide active" id="slide-0">
         <div class="first-slide-content">
           <h1>RBX <span>LABS</span></h1>
-          <p style="margin-top: 1.5rem; font-size: 1.2rem; font-weight: 500;">
-            Select any amount of Robux<br>and get it instantly in Roblox.
-          </p>
-          <!-- orange arrow REMOVED -->
+          <p>Select any amount of Robux and get it instantly in Roblox.</p>
         </div>
       </div>
 
-      <!-- SLIDE 1: Robux options -->
       <div class="slide" id="slide-1">
         <div class="category-header">
           <h2>✨ choose amount</h2>
         </div>
 
-        <!-- selected count indicator -->
         <div class="selected-count-container" style="margin-left: auto; margin-right: auto; display: block; width: fit-content;">
           <span class="selected-count-text">ROBUX SELECTED</span>
           <span class="selected-count-number" id="selectedCount">0</span>
         </div>
 
-        <!-- robux grid - 8 options -->
         <div class="robux-grid" id="robuxGrid">
-          <!-- filled by JS -->
         </div>
       </div>
 
-      <!-- SLIDE 2: Username + confirm -->
       <div class="slide" id="slide-2">
         <div class="last-slide-content">
           <div class="slide-header">
@@ -520,7 +496,6 @@
       </div>
     </div>
 
-    <!-- bottom navigation -->
     <div class="nav-buttons-container">
       <div class="nav-buttons">
         <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
@@ -529,7 +504,6 @@
     </div>
   </div>
 
-  <!-- loading overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
@@ -540,10 +514,8 @@
 
   <script>
     (function() {
-      // --- define robux options: 8 options between 0 and 1000 ---
       const robuxOptions = [0, 50, 100, 200, 350, 500, 750, 1000];
 
-      // state
       let currentSlide = 0;
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
@@ -554,9 +526,7 @@
       const selectedCountSpan = document.getElementById('selectedCount');
       const robuxGrid = document.getElementById('robuxGrid');
 
-      // --- page transition functions (exact from FruitLabs) ---
       function animatePageTransition(direction, callback) {
-        // direction: 'in' or 'out'
         if (direction === 'out') {
           pageTransition.classList.remove('animate-in');
           pageTransition.classList.add('animate-out');
@@ -564,7 +534,7 @@
           setTimeout(() => {
             pageTransition.classList.remove('animate-out');
             if (callback) callback();
-          }, 500); // match animation duration
+          }, 500);
         } else {
           pageTransition.classList.add('animate-in');
           
@@ -575,7 +545,6 @@
         }
       }
 
-      // --- render robux cards ---
       function renderRobuxCards() {
         if (!robuxGrid) return;
         let html = '';
@@ -592,7 +561,6 @@
         });
         robuxGrid.innerHTML = html;
 
-        // attach click listeners
         document.querySelectorAll('.robux-card').forEach(card => {
           card.addEventListener('click', () => {
             const amount = parseInt(card.dataset.amount, 10);
@@ -603,22 +571,16 @@
         });
       }
 
-      // update selected count
       function updateSelectedCount() {
         if (selectedCountSpan) {
           selectedCountSpan.innerText = selectedRobux !== null ? '1' : '0';
         }
       }
 
-      // --- slide navigation with transition ---
       function goToSlide(newIndex) {
         if (newIndex === currentSlide) return;
         
-        const direction = newIndex > currentSlide ? 'next' : 'prev';
-        
-        // play transition out
         animatePageTransition('out', () => {
-          // change slide
           slides.forEach((slide, index) => {
             if (index === newIndex) {
               slide.classList.add('active');
@@ -629,7 +591,6 @@
           
           currentSlide = newIndex;
           
-          // update buttons
           prevBtn.disabled = (currentSlide === 0);
           if (currentSlide === slides.length - 1) {
             nextBtn.innerHTML = `finish <i class="fas fa-check"></i>`;
@@ -637,12 +598,10 @@
             nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
           }
           
-          // play transition in
           animatePageTransition('in');
         });
       }
 
-      // validation before moving forward
       function canGoNext() {
         if (currentSlide === 0) return true;
         if (currentSlide === 1) {
@@ -654,7 +613,6 @@
         return true;
       }
 
-      // next action
       function handleNext() {
         if (currentSlide === slides.length - 1) {
           confirmOrder();
@@ -669,14 +627,12 @@
         goToSlide(currentSlide + 1);
       }
 
-      // prev action
       function handlePrev() {
         if (currentSlide > 0) {
           goToSlide(currentSlide - 1);
         }
       }
 
-      // confirm order
       function confirmOrder() {
         const usernameInput = document.getElementById('robloxUser');
         const username = usernameInput.value.trim();
@@ -690,7 +646,6 @@
           return;
         }
 
-        // show loading overlay
         const overlay = document.getElementById('loadingOverlay');
         const loadingUsernameSpan = document.getElementById('loadingUsername');
         if (loadingUsernameSpan) {
@@ -698,22 +653,18 @@
         }
         overlay.classList.add('active');
 
-        // simulate preparation
         setTimeout(() => {
           overlay.classList.remove('active');
           alert(`Prepared ${selectedRobux} Robux for ${username} (demo)`);
         }, 2500);
       }
 
-      // --- initialize ---
       renderRobuxCards();
       updateSelectedCount();
 
-      // button listeners
       prevBtn.addEventListener('click', handlePrev);
       nextBtn.addEventListener('click', handleNext);
 
-      // enter key on username
       document.getElementById('robloxUser')?.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
