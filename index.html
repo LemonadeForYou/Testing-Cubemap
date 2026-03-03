@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -30,7 +28,6 @@
       color: #eef3fc;
     }
 
-    /* Page Transition Overlay */
     .page-transition {
       position: fixed;
       top: 0;
@@ -62,29 +59,39 @@
       to { transform: scaleY(1); }
     }
 
-    /* Notification - EXACT match to FruitLabs screenshot */
     .notification {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: #ffb347;
-      color: #000000;
+      transform: translateX(-50%);
+      background: #16212e;
+      border: 2px solid #ffb347;
+      border-radius: 40px;
+      padding: 1rem 2rem;
+      color: #ffd966;
       font-weight: 600;
       font-size: 1rem;
-      padding: 0.8rem 2rem;
-      border-radius: 40px;
       z-index: 10001;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-      white-space: nowrap;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
       pointer-events: none;
-      border: none;
-      text-align: center;
+      backdrop-filter: blur(8px);
     }
 
     .notification.show {
-      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(10px);
+    }
+
+    .notification i {
+      color: #ffb347;
+      font-size: 1.2rem;
     }
 
     .slideshow-container {
@@ -371,7 +378,6 @@
       object-fit: contain;
     }
 
-    /* Confirmation Popup */
     .confirmation-overlay {
       position: fixed;
       top: 0;
@@ -521,39 +527,33 @@
       background: #ffc46b;
       transform: scale(1.02);
     }
+
     .nav-buttons-container {
       padding: 1rem 1.5rem;
       border-top: 2px solid #ffb347;
       background: #0f1a26;
       flex-shrink: 0;
-    }
-
-    .nav-buttons {
       display: flex;
       justify-content: space-between;
-      align-items: center;
       gap: 1rem;
     }
 
     .nav-btn {
       background: transparent;
       border: 2px solid #ffb347;
-      border-radius: 40px;
-      padding: 0.6rem 1.5rem;
-      font-weight: 600;
-      font-size: 0.9rem;
       color: #ffb347;
-      display: flex;
-      align-items: center;
-      gap: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 0.75rem 1.5rem;
+      border-radius: 40px;
       cursor: pointer;
       transition: all 0.15s ease;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
       flex: 1;
-      justify-content: center;
     }
 
-    .nav-btn:hover {
+    .nav-btn:hover:not(:disabled) {
       background: #ffb347;
       color: #0b0e14;
     }
@@ -561,371 +561,228 @@
     .nav-btn:disabled {
       opacity: 0.3;
       cursor: not-allowed;
-      pointer-events: none;
+      border-color: #4a6075;
+      color: #4a6075;
     }
 
-    /* Loading Overlay */
-    .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      backdrop-filter: blur(8px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+    .nav-btn.next-btn {
+      background: #ffb347;
+      color: #0b0e14;
     }
 
-    .loading-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .loading-popup {
-      background: #16212e;
-      border-radius: 24px;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      border: 2px solid #ffb347;
-      max-width: 400px;
-      width: 90%;
-    }
-
-    .loading-spinner {
-      width: 60px;
-      height: 60px;
-      border: 4px solid #2f4a6a;
-      border-top: 4px solid #ffb347;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loading-main-text {
-      color: white;
-      font-size: 1.4rem;
-      font-weight: 600;
-      text-align: center;
-      background: linear-gradient(135deg, #ffffff, #ffb347);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+    .nav-btn.next-btn:hover:not(:disabled) {
+      background: #ffc46b;
+      border-color: #ffc46b;
     }
   </style>
 </head>
 <body>
   <div class="page-transition" id="pageTransition"></div>
-
-  <!-- Notification - EXACT match to FruitLabs screenshot -->
-  <div class="notification" id="notification">Please select an amount first</div>
-
-  <!-- Confirmation Popup -->
-  <div class="confirmation-overlay" id="confirmationOverlay">
-    <div class="confirmation-popup">
-      <h2>RBX <span>LABS</span></h2>
-      <p>almost done</p>
-      
-      <div class="popup-input-wrapper">
-        <i class="fas fa-user"></i>
-        <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
-      </div>
-
-      <div class="amount-display" id="popupAmount">
-        <img src="robux.png" alt="R$" onerror="this.style.display='none';">
-        <span></span>
-      </div>
-
-      <div class="popup-buttons">
-        <button class="popup-btn cancel-btn" id="cancelPopupBtn">cancel</button>
-        <button class="popup-btn confirm-popup-btn" id="confirmPopupBtn">confirm</button>
-      </div>
-    </div>
+  
+  <div class="notification" id="amountNotification">
+    <i class="fas fa-exclamation-circle"></i>
+    Please select an amount first
   </div>
 
   <div class="slideshow-container">
     <div class="slides-area">
-      <div class="slide active" id="slide-0">
+      <div class="slide active" id="slide1">
         <div class="first-slide-content">
           <h1>RBX <span>LABS</span></h1>
-          <p>Select any amount of Robux and get it instantly in Roblox.</p>
+          <p>Your trusted source for Robux generation. Fast, secure, and reliable.</p>
         </div>
       </div>
-
-      <div class="slide" id="slide-1">
+      
+      <div class="slide" id="slide2">
         <div class="how-it-works-content">
-          <h2>how does<br>RBX LABS work?</h2>
-          
+          <h2>HOW IT WORKS</h2>
           <div class="steps-list">
             <div class="step-item">
               <div class="step-number">1</div>
-              <div class="step-text">You enter the amount of Robux you want.</div>
+              <div class="step-text">Enter the amount of Robux you want to generate</div>
             </div>
             <div class="step-item">
               <div class="step-number">2</div>
-              <div class="step-text">You type in your Roblox username.</div>
+              <div class="step-text">Click "Generate" and wait for the system to process</div>
             </div>
             <div class="step-item">
               <div class="step-number">3</div>
-              <div class="step-text">The site processes your request.</div>
+              <div class="step-text">Enter your Roblox username to receive the Robux</div>
             </div>
             <div class="step-item">
               <div class="step-number">4</div>
-              <div class="step-text">You are redirected to a private server in PLS DONATE.</div>
-            </div>
-            <div class="step-item">
-              <div class="step-number">5</div>
-              <div class="step-text">The bot donates Robux to your stand.</div>
+              <div class="step-text">Complete a quick verification to prove you're human</div>
             </div>
           </div>
-
           <div class="note-box">
-            <p>⚠️ Important Note:</p>
+            <p>⚠️ IMPORTANT NOTES:</p>
             <ul>
-              <li>If you are not redirected to the private server, ensure you are logged into your Roblox account.</li>
-              <li>Use your main account only; alternate accounts are not supported and may prevent the process from working properly.</li>
+              <li>Maximum 50,000 Robux per day</li>
+              <li>Processing takes 2-5 minutes</li>
+              <li>One account per day only</li>
             </ul>
           </div>
         </div>
       </div>
-
-      <div class="slide" id="slide-2">
+      
+      <div class="slide" id="slide3">
         <div class="category-header">
-          <h2>choose amount</h2>
+          <h2>SELECT AMOUNT</h2>
         </div>
-
+        
         <div class="amount-input-container">
-          <span class="amount-label">enter amount</span>
+          <label class="amount-label">ENTER CUSTOM AMOUNT</label>
           <div class="amount-input-wrapper">
-            <img src="robux.png" alt="Robux" class="robux-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <i class="fas fa-coins" style="display: none; color: #ffb347; font-size: 1.2rem; margin-right: 0.5rem;"></i>
-            <input type="number" id="robuxAmount" placeholder="0" min="0" step="1">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z'/%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="Robux" class="robux-logo">
+            <input type="number" id="robuxAmount" placeholder="Enter amount (100-50000)" min="100" max="50000">
           </div>
         </div>
-
-        <span class="quick-select-label">quick select</span>
-        <div class="quick-select-grid" id="quickSelectGrid">
-          <div class="quick-select-btn" data-amount="24000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 24,000</div>
-          <div class="quick-select-btn" data-amount="11000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 11,000</div>
-          <div class="quick-select-btn" data-amount="5250"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 5,250</div>
-          <div class="quick-select-btn" data-amount="2000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 2,000</div>
-          <div class="quick-select-btn" data-amount="1000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 1,000</div>
-          <div class="quick-select-btn" data-amount="500"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 500</div>
+        
+        <label class="quick-select-label">QUICK SELECT</label>
+        <div class="quick-select-grid">
+          <button class="quick-select-btn" data-amount="100"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 100</button>
+          <button class="quick-select-btn" data-amount="500"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 500</button>
+          <button class="quick-select-btn" data-amount="1000"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 1,000</button>
+          <button class="quick-select-btn" data-amount="2500"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 2,500</button>
+          <button class="quick-select-btn" data-amount="5000"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 5,000</button>
+          <button class="quick-select-btn" data-amount="10000"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="" class="btn-robux-logo"> 10,000</button>
         </div>
       </div>
     </div>
-
+    
     <div class="nav-buttons-container">
-      <div class="nav-buttons">
-        <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
-        <button class="nav-btn" id="nextBtn">next <i class="fas fa-arrow-right"></i></button>
-      </div>
+      <button class="nav-btn" id="prevBtn" disabled>← PREV</button>
+      <button class="nav-btn next-btn" id="nextBtn">NEXT →</button>
     </div>
   </div>
 
-  <!-- Loading Overlay -->
-  <div class="loading-overlay" id="loadingOverlay">
-    <div class="loading-popup">
-      <div class="loading-spinner"></div>
-      <div class="loading-main-text">preparing robux...</div>
-      <div style="color:#8fadc7; font-size:1rem;" id="loadingUsername"></div>
+  <div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-popup">
+      <h2>CONFIRM <span>AMOUNT</span></h2>
+      <p>Enter your Roblox username to receive</p>
+      <div class="popup-input-wrapper">
+        <i class="fas fa-user"></i>
+        <input type="text" id="popupRobloxUser" placeholder="Roblox username">
+      </div>
+      <div class="amount-display" id="popupAmountDisplay">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'%3E%3Ccircle cx='12' cy='12' r='5' fill='%23ffb347'/%3E%3C/svg%3E" alt="">
+        <span id="popupAmount">0</span>
+      </div>
+      <div class="popup-buttons">
+        <button class="popup-btn cancel-btn" id="cancelPopupBtn">CANCEL</button>
+        <button class="popup-btn confirm-popup-btn" id="confirmPopupBtn">CONFIRM</button>
+      </div>
     </div>
   </div>
 
   <script>
-    (function() {
-      let currentSlide = 0;
-      const slides = document.querySelectorAll('.slide');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-      const pageTransition = document.getElementById('pageTransition');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let currentSlide = 0;
+    const pageTransition = document.getElementById('pageTransition');
+    const amountInput = document.getElementById('robuxAmount');
+    const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
+    const confirmationOverlay = document.getElementById('confirmationOverlay');
+    const cancelPopupBtn = document.getElementById('cancelPopupBtn');
+    const confirmPopupBtn = document.getElementById('confirmPopupBtn');
+    const popupRobloxUser = document.getElementById('popupRobloxUser');
+    const popupAmount = document.getElementById('popupAmount');
+    const amountNotification = document.getElementById('amountNotification');
+    let selectedAmount = 0;
 
-      let selectedRobux = null;
-      const robuxAmountInput = document.getElementById('robuxAmount');
-      const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
+    function showSlide(index) {
+      slides.forEach(slide => slide.classList.remove('active'));
+      slides[index].classList.add('active');
+      prevBtn.disabled = index === 0;
+      nextBtn.textContent = index === slides.length - 1 ? 'GENERATE' : 'NEXT →';
+    }
 
-      // Notification element
-      const notification = document.getElementById('notification');
-
-      // Popup elements
-      const confirmationOverlay = document.getElementById('confirmationOverlay');
-      const popupUsernameInput = document.getElementById('popupRobloxUser');
-      const popupAmountSpan = document.querySelector('#popupAmount span');
-      const cancelPopupBtn = document.getElementById('cancelPopupBtn');
-      const confirmPopupBtn = document.getElementById('confirmPopupBtn');
-
-      function showNotification(message) {
-        notification.textContent = message;
-        notification.classList.add('show');
-        
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        pageTransition.classList.add('animate-in');
         setTimeout(() => {
-          notification.classList.remove('show');
-        }, 2000);
-      }
-
-      function animatePageTransition(direction, callback) {
-        if (direction === 'out') {
+          currentSlide++;
+          showSlide(currentSlide);
           pageTransition.classList.remove('animate-in');
-          pageTransition.classList.add('animate-out');
-          
-          setTimeout(() => {
-            pageTransition.classList.remove('animate-out');
-            if (callback) callback();
-          }, 500);
-        } else {
-          pageTransition.classList.add('animate-in');
-          
-          setTimeout(() => {
-            pageTransition.classList.remove('animate-in');
-            if (callback) callback();
-          }, 500);
-        }
+        }, 250);
+      } else if (currentSlide === slides.length - 1) {
+        generateRobux();
       }
+    }
 
-      function removeSelectedClassFromButtons() {
-        quickSelectBtns.forEach(btn => {
-          btn.classList.remove('selected');
-        });
-      }
-
-      quickSelectBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-          const amount = parseInt(btn.dataset.amount, 10);
-          selectedRobux = amount;
-          if (robuxAmountInput) {
-            robuxAmountInput.value = amount;
-          }
-          
-          removeSelectedClassFromButtons();
-          btn.classList.add('selected');
-        });
-      });
-
-      if (robuxAmountInput) {
-        robuxAmountInput.addEventListener('input', (e) => {
-          const value = parseInt(e.target.value, 10);
-          if (!isNaN(value) && value >= 0) {
-            selectedRobux = value;
-            removeSelectedClassFromButtons();
-          } else if (e.target.value === '') {
-            selectedRobux = null;
-            removeSelectedClassFromButtons();
-          }
-        });
-      }
-
-      function showConfirmationPopup() {
-        if (selectedRobux === null) {
-          showNotification('Please select an amount first');
-          return false;
-        }
-
-        popupUsernameInput.value = '';
-        popupAmountSpan.textContent = selectedRobux.toLocaleString();
-        
-        confirmationOverlay.classList.add('active');
-        setTimeout(() => popupUsernameInput.focus(), 100);
-        return true;
-      }
-
-      function hideConfirmationPopup() {
-        confirmationOverlay.classList.remove('active');
-      }
-
-      function processOrder() {
-        const username = popupUsernameInput.value.trim();
-        if (!username) {
-          showNotification('Please enter your Roblox username');
-          popupUsernameInput.focus();
-          return;
-        }
-        
-        hideConfirmationPopup();
-        
-        const overlay = document.getElementById('loadingOverlay');
-        const loadingUsernameSpan = document.getElementById('loadingUsername');
-        if (loadingUsernameSpan) {
-          loadingUsernameSpan.innerText = `@${username} · ${selectedRobux} robux`;
-        }
-        overlay.classList.add('active');
-
+    function prevSlide() {
+      if (currentSlide > 0) {
+        pageTransition.classList.add('animate-out');
         setTimeout(() => {
-          overlay.classList.remove('active');
-          showNotification(`Prepared ${selectedRobux} Robux for ${username}!`);
-        }, 2500);
+          currentSlide--;
+          showSlide(currentSlide);
+          pageTransition.classList.remove('animate-out');
+        }, 250);
       }
+    }
 
-      function goToSlide(newIndex) {
-        if (newIndex === currentSlide) return;
-        
-        animatePageTransition('out', () => {
-          slides.forEach((slide, index) => {
-            if (index === newIndex) {
-              slide.classList.add('active');
-            } else {
-              slide.classList.remove('active');
-            }
-          });
-          
-          currentSlide = newIndex;
-          
-          prevBtn.disabled = (currentSlide === 0);
-          
-          if (currentSlide === slides.length - 1) {
-            nextBtn.innerHTML = `confirm <i class="fas fa-check-circle"></i>`;
-          } else {
-            nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
-          }
-          
-          animatePageTransition('in');
-        });
+    function generateRobux() {
+      const amount = parseInt(amountInput.value) || selectedAmount;
+      if (!amount || amount < 100 || amount > 50000) {
+        amountNotification.classList.add('show');
+        setTimeout(() => {
+          amountNotification.classList.remove('show');
+        }, 3000);
+        return;
       }
+      
+      popupAmount.textContent = amount.toLocaleString();
+      confirmationOverlay.classList.add('active');
+    }
 
-      function handleNext() {
-        if (currentSlide === slides.length - 1) {
-          showConfirmationPopup();
-        } else {
-          goToSlide(currentSlide + 1);
-        }
-      }
+    function showNotification(message) {
+      amountNotification.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      amountNotification.classList.add('show');
+      setTimeout(() => {
+        amountNotification.classList.remove('show');
+      }, 3000);
+    }
 
-      function handlePrev() {
-        if (currentSlide > 0) {
-          goToSlide(currentSlide - 1);
-        }
-      }
-
-      prevBtn.addEventListener('click', handlePrev);
-      nextBtn.addEventListener('click', handleNext);
-
-      cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
-      confirmPopupBtn.addEventListener('click', processOrder);
-
-      confirmationOverlay.addEventListener('click', (e) => {
-        if (e.target === confirmationOverlay) {
-          hideConfirmationPopup();
-        }
+    quickSelectBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        quickSelectBtns.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedAmount = parseInt(btn.dataset.amount);
+        amountInput.value = selectedAmount;
       });
+    });
 
-      popupUsernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          processOrder();
-        }
-      });
-    })();
+    amountInput.addEventListener('input', () => {
+      quickSelectBtns.forEach(btn => btn.classList.remove('selected'));
+      selectedAmount = 0;
+    });
+
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+
+    cancelPopupBtn.addEventListener('click', () => {
+      confirmationOverlay.classList.remove('active');
+      popupRobloxUser.value = '';
+    });
+
+    confirmPopupBtn.addEventListener('click', () => {
+      const username = popupRobloxUser.value.trim();
+      if (!username) {
+        showNotification('Please enter your Roblox username');
+        return;
+      }
+      
+      showNotification(`Generating ${selectedAmount || amountInput.value} Robux for ${username}...`);
+      
+      setTimeout(() => {
+        confirmationOverlay.classList.remove('active');
+        popupRobloxUser.value = '';
+        showNotification('Success! Check your Roblox account in 2-5 minutes');
+      }, 2000);
+    });
+
+    showSlide(0);
   </script>
 </body>
 </html>
