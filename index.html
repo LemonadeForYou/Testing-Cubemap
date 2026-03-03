@@ -236,7 +236,7 @@
 
     .category-header {
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       flex-shrink: 0;
     }
 
@@ -306,7 +306,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     .quick-select-btn {
@@ -344,68 +344,176 @@
       object-fit: contain;
     }
 
-    .selected-count-container {
-      background: #16212e;
-      padding: 0.5rem 1rem;
-      border-radius: 40px;
-      border: 1px solid #ffb347;
-      margin-bottom: 2rem;
-      display: inline-block;
-      width: fit-content;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .selected-count-text {
-      color: #ffb347;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .selected-count-number {
+    .confirm-bottom-btn {
       background: #ffb347;
-      color: #0b0e14;
-      padding: 0.2rem 0.8rem;
-      border-radius: 30px;
-      margin-left: 0.5rem;
+      border: none;
+      border-radius: 40px;
+      padding: 1rem 2rem;
       font-weight: 700;
+      font-size: 1.2rem;
+      color: #0b0e14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      width: 100%;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
     }
 
-    .last-slide-content {
-      min-height: 100%;
+    .confirm-bottom-btn:hover {
+      background: #ffc46b;
+      transform: scale(1.02);
+    }
+
+    .confirm-bottom-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Confirmation Popup */
+    .confirmation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .confirmation-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .confirmation-popup {
+      background: #16212e;
+      border-radius: 24px;
+      padding: 2rem;
       display: flex;
       flex-direction: column;
-      justify-content: center;
       align-items: center;
-      gap: 2rem;
-      padding: 1rem 0;
+      gap: 1.5rem;
+      border: 2px solid #ffb347;
+      max-width: 400px;
+      width: 90%;
     }
 
-    .last-slide-content .slide-header {
-      text-align: center;
-    }
-
-    .last-slide-content .slide-header h1 {
-      color: white;
-      font-size: 2.6rem;
-      font-weight: 700;
+    .confirmation-popup h2 {
+      color: #ffd966;
+      font-size: 2rem;
+      font-weight: 600;
       text-transform: uppercase;
-      background: linear-gradient(135deg, #ffffff 0%, #b0c8e0 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      text-align: center;
+      line-height: 1.3;
     }
 
-    .last-slide-content .slide-header h1 span {
+    .confirmation-popup h2 span {
       background: linear-gradient(135deg, #ffd966, #ffb347);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .last-slide-content .slide-header p {
+    .confirmation-popup p {
       color: #8fadc7;
       font-size: 1.1rem;
       margin-top: 0.5rem;
+      text-align: center;
     }
+
+    .username-display {
+      background: #1f3142;
+      border-radius: 40px;
+      padding: 1rem 2rem;
+      border: 2px solid #ffb347;
+      width: 100%;
+      text-align: center;
+    }
+
+    .username-display i {
+      color: #ffb347;
+      margin-right: 0.5rem;
+    }
+
+    .username-display span {
+      color: white;
+      font-weight: 600;
+      font-size: 1.2rem;
+    }
+
+    .amount-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #0f1a26;
+      border-radius: 40px;
+      padding: 0.8rem 2rem;
+      border: 1px solid #2f4a6a;
+    }
+
+    .amount-display img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .amount-display span {
+      color: #ffd966;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .popup-buttons {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      margin-top: 1rem;
+    }
+
+    .popup-btn {
+      flex: 1;
+      padding: 0.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      text-transform: uppercase;
+      border: none;
+    }
+
+    .cancel-btn {
+      background: transparent;
+      border: 2px solid #ffb347;
+      color: #ffb347;
+    }
+
+    .cancel-btn:hover {
+      background: #ffb347;
+      color: #0b0e14;
+    }
+
+    .confirm-popup-btn {
+      background: #ffb347;
+      color: #0b0e14;
+    }
+
+    .confirm-popup-btn:hover {
+      background: #ffc46b;
+      transform: scale(1.02);
+    }
+
     .input-wrapper {
       position: relative;
       width: 100%;
@@ -435,29 +543,6 @@
     #robloxUser:focus {
       border-color: #ffb347;
     }
-
-    .confirm-btn {
-      background: #ffb347;
-      border: none;
-      border-radius: 40px;
-      padding: 0.7rem 2rem;
-      font-weight: 600;
-      font-size: 1rem;
-      color: #0b0e14;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      text-transform: uppercase;
-      margin-top: 1rem;
-    }
-
-    .confirm-btn:hover {
-      background: #ffc46b;
-      transform: scale(1.02);
-    }
-
     .nav-buttons-container {
       padding: 1rem 1.5rem;
       border-top: 2px solid #ffb347;
@@ -565,6 +650,29 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
+  <!-- Confirmation Popup -->
+  <div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-popup">
+      <h2>RBX <span>LABS</span></h2>
+      <p>almost done</p>
+      
+      <div class="username-display" id="popupUsername">
+        <i class="fas fa-user"></i>
+        <span></span>
+      </div>
+
+      <div class="amount-display" id="popupAmount">
+        <img src="robux.png" alt="R$" onerror="this.style.display='none';">
+        <span></span>
+      </div>
+
+      <div class="popup-buttons">
+        <button class="popup-btn cancel-btn" id="cancelPopupBtn">cancel</button>
+        <button class="popup-btn confirm-popup-btn" id="confirmPopupBtn">confirm</button>
+      </div>
+    </div>
+  </div>
+
   <div class="slideshow-container">
     <div class="slides-area">
       <div class="slide active" id="slide-0">
@@ -616,11 +724,6 @@
           <h2>choose amount</h2>
         </div>
 
-        <div class="selected-count-container">
-          <span class="selected-count-text">ROBUX SELECTED</span>
-          <span class="selected-count-number" id="selectedCount">0</span>
-        </div>
-
         <div class="amount-input-container">
           <span class="amount-label">enter amount</span>
           <div class="amount-input-wrapper">
@@ -639,24 +742,16 @@
           <div class="quick-select-btn" data-amount="1000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 1,000</div>
           <div class="quick-select-btn" data-amount="500"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 500</div>
         </div>
-      </div>
 
-      <div class="slide" id="slide-3">
-        <div class="last-slide-content">
-          <div class="slide-header">
-            <h1>RBX <span>LABS</span></h1>
-            <p>almost done</p>
-          </div>
-
-          <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input type="text" id="robloxUser" placeholder="roblox username" autocomplete="off">
-          </div>
-
-          <button class="confirm-btn" id="confirmBtn">
-            <i class="fas fa-check-circle"></i> confirm
-          </button>
+        <!-- Username input moved here -->
+        <div class="input-wrapper" style="margin: 2rem auto 1.5rem auto;">
+          <i class="fas fa-user"></i>
+          <input type="text" id="robloxUser" placeholder="roblox username" autocomplete="off">
         </div>
+
+        <button class="confirm-bottom-btn" id="confirmBtn">
+          <i class="fas fa-check-circle"></i> confirm
+        </button>
       </div>
     </div>
 
@@ -683,11 +778,19 @@
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const pageTransition = document.getElementById('pageTransition');
+      const confirmBtn = document.getElementById('confirmBtn');
 
       let selectedRobux = null;
-      const selectedCountSpan = document.getElementById('selectedCount');
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
+      const usernameInput = document.getElementById('robloxUser');
+
+      // Popup elements
+      const confirmationOverlay = document.getElementById('confirmationOverlay');
+      const popupUsername = document.querySelector('#popupUsername span');
+      const popupAmount = document.querySelector('#popupAmount span');
+      const cancelPopupBtn = document.getElementById('cancelPopupBtn');
+      const confirmPopupBtn = document.getElementById('confirmPopupBtn');
 
       function animatePageTransition(direction, callback) {
         if (direction === 'out') {
@@ -708,12 +811,6 @@
         }
       }
 
-      function updateSelectedCount() {
-        if (selectedCountSpan) {
-          selectedCountSpan.innerText = selectedRobux !== null ? '1' : '0';
-        }
-      }
-
       function removeSelectedClassFromButtons() {
         quickSelectBtns.forEach(btn => {
           btn.classList.remove('selected');
@@ -727,7 +824,6 @@
           if (robuxAmountInput) {
             robuxAmountInput.value = amount;
           }
-          updateSelectedCount();
           
           removeSelectedClassFromButtons();
           btn.classList.add('selected');
@@ -739,17 +835,75 @@
           const value = parseInt(e.target.value, 10);
           if (!isNaN(value) && value >= 0) {
             selectedRobux = value;
-            updateSelectedCount();
-            
             removeSelectedClassFromButtons();
           } else if (e.target.value === '') {
             selectedRobux = null;
-            updateSelectedCount();
-            
             removeSelectedClassFromButtons();
           }
         });
       }
+
+      function showConfirmationPopup() {
+        const username = usernameInput.value.trim();
+        if (!username) {
+          alert('Please enter your Roblox username.');
+          return false;
+        }
+        if (selectedRobux === null) {
+          alert('Please select a robux amount.');
+          return false;
+        }
+
+        // Update popup with values
+        popupUsername.textContent = username;
+        popupAmount.textContent = selectedRobux.toLocaleString();
+
+        // Show popup
+        confirmationOverlay.classList.add('active');
+        return true;
+      }
+
+      function hideConfirmationPopup() {
+        confirmationOverlay.classList.remove('active');
+      }
+
+      function processOrder() {
+        hideConfirmationPopup();
+        
+        const username = usernameInput.value.trim();
+        
+        const overlay = document.getElementById('loadingOverlay');
+        const loadingUsernameSpan = document.getElementById('loadingUsername');
+        if (loadingUsernameSpan) {
+          loadingUsernameSpan.innerText = `@${username} · ${selectedRobux} robux`;
+        }
+        overlay.classList.add('active');
+
+        setTimeout(() => {
+          overlay.classList.remove('active');
+          alert(`Prepared ${selectedRobux} Robux for ${username} (demo)`);
+        }, 2500);
+      }
+
+      confirmBtn.addEventListener('click', showConfirmationPopup);
+
+      cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
+
+      confirmPopupBtn.addEventListener('click', processOrder);
+
+      // Close popup if clicking outside (optional)
+      confirmationOverlay.addEventListener('click', (e) => {
+        if (e.target === confirmationOverlay) {
+          hideConfirmationPopup();
+        }
+      });
+
+      usernameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          showConfirmationPopup();
+        }
+      });
 
       function goToSlide(newIndex) {
         if (newIndex === currentSlide) return;
@@ -776,28 +930,10 @@
         });
       }
 
-      function canGoNext() {
-        if (currentSlide === 0) return true;
-        if (currentSlide === 1) return true;
-        if (currentSlide === 2) {
-          return selectedRobux !== null;
-        }
-        if (currentSlide === 3) return true;
-        return true;
-      }
-
       function handleNext() {
-        if (currentSlide === slides.length - 1) {
-          confirmOrder();
-          return;
+        if (currentSlide < slides.length - 1) {
+          goToSlide(currentSlide + 1);
         }
-
-        if (!canGoNext()) {
-          alert('Please select a robux amount first.');
-          return;
-        }
-
-        goToSlide(currentSlide + 1);
       }
 
       function handlePrev() {
@@ -806,43 +942,8 @@
         }
       }
 
-      function confirmOrder() {
-        const usernameInput = document.getElementById('robloxUser');
-        const username = usernameInput.value.trim();
-        if (!username) {
-          alert('Please enter your Roblox username.');
-          return;
-        }
-        if (selectedRobux === null) {
-          alert('Please select a robux amount on the previous page.');
-          goToSlide(2);
-          return;
-        }
-
-        const overlay = document.getElementById('loadingOverlay');
-        const loadingUsernameSpan = document.getElementById('loadingUsername');
-        if (loadingUsernameSpan) {
-          loadingUsernameSpan.innerText = `@${username} · ${selectedRobux} robux`;
-        }
-        overlay.classList.add('active');
-
-        setTimeout(() => {
-          overlay.classList.remove('active');
-          alert(`Prepared ${selectedRobux} Robux for ${username} (demo)`);
-        }, 2500);
-      }
-
-      updateSelectedCount();
-
       prevBtn.addEventListener('click', handlePrev);
       nextBtn.addEventListener('click', handleNext);
-
-      document.getElementById('robloxUser')?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          confirmOrder();
-        }
-      });
     })();
   </script>
 </body>
