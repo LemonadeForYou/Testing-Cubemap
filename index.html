@@ -30,7 +30,7 @@
       color: #eef3fc;
     }
 
-    /* Page Transition Overlay - exact from FruitLabs */
+    /* Page Transition Overlay */
     .page-transition {
       position: fixed;
       top: 0;
@@ -62,38 +62,27 @@
       to { transform: scaleY(1); }
     }
 
-    /* Notification - slide down only, no fade */
+    /* Notification - exact style from FruitLabs */
     .notification {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%) translateY(-20px);
-      background: #16212e;
-      border: 2px solid #ffb347;
-      border-radius: 40px;
-      padding: 1rem 2rem;
-      color: #ffd966;
+      transform: translateX(-50%) translateY(-100px);
+      background: #ffb347;
+      color: #0b0e14;
       font-weight: 600;
       font-size: 1rem;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
       z-index: 10001;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      visibility: hidden;
-      transition: transform 0.3s ease, visibility 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      white-space: nowrap;
       pointer-events: none;
-      backdrop-filter: blur(8px);
     }
 
     .notification.show {
-      visibility: visible;
       transform: translateX(-50%) translateY(0);
-    }
-
-    .notification i {
-      color: #ffb347;
-      font-size: 1.2rem;
     }
 
     .slideshow-container {
@@ -380,7 +369,7 @@
       object-fit: contain;
     }
 
-    /* Confirmation Popup - matching FruitLabs loading overlay style */
+    /* Confirmation Popup */
     .confirmation-overlay {
       position: fixed;
       top: 0;
@@ -573,7 +562,7 @@
       pointer-events: none;
     }
 
-    /* Loading Overlay - exact from FruitLabs */
+    /* Loading Overlay */
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -638,11 +627,8 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notification - slide down only, no fade -->
-  <div class="notification" id="notification">
-    <i class="fas fa-exclamation-circle"></i>
-    <span id="notificationMessage">Please select an amount first</span>
-  </div>
+  <!-- Notification - EXACT style from FruitLabs -->
+  <div class="notification" id="notification">Please select an amount first</div>
 
   <!-- Confirmation Popup -->
   <div class="confirmation-overlay" id="confirmationOverlay">
@@ -747,7 +733,7 @@
     </div>
   </div>
 
-  <!-- Loading Overlay - exact from FruitLabs -->
+  <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
@@ -768,9 +754,8 @@
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
 
-      // Notification elements
+      // Notification element
       const notification = document.getElementById('notification');
-      const notificationMessage = document.getElementById('notificationMessage');
 
       // Popup elements
       const confirmationOverlay = document.getElementById('confirmationOverlay');
@@ -780,7 +765,7 @@
       const confirmPopupBtn = document.getElementById('confirmPopupBtn');
 
       function showNotification(message) {
-        notificationMessage.textContent = message;
+        notification.textContent = message;
         notification.classList.add('show');
         
         setTimeout(() => {
