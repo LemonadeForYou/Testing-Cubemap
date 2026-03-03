@@ -60,6 +60,41 @@
       to { transform: scaleY(1); }
     }
 
+    /* Notification style - exactly like FruitLabs */
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #16212e;
+      border: 2px solid #ffb347;
+      border-radius: 40px;
+      padding: 1rem 2rem;
+      color: #ffd966;
+      font-weight: 600;
+      font-size: 1rem;
+      z-index: 10001;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      pointer-events: none;
+    }
+
+    .notification.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(10px);
+    }
+
+    .notification i {
+      color: #ffb347;
+      font-size: 1.2rem;
+    }
+
     .slideshow-container {
       max-width: 600px;
       width: 100%;
@@ -601,6 +636,12 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
+  <!-- Notification (FruitLabs style) -->
+  <div class="notification" id="notification">
+    <i class="fas fa-exclamation-circle"></i>
+    <span id="notificationMessage">Please select an amount first</span>
+  </div>
+
   <!-- Confirmation Popup -->
   <div class="confirmation-overlay" id="confirmationOverlay">
     <div class="confirmation-popup">
@@ -724,12 +765,25 @@
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
 
+      // Notification elements
+      const notification = document.getElementById('notification');
+      const notificationMessage = document.getElementById('notificationMessage');
+
       // Popup elements
       const confirmationOverlay = document.getElementById('confirmationOverlay');
       const popupUsernameInput = document.getElementById('popupRobloxUser');
       const popupAmountSpan = document.querySelector('#popupAmount span');
       const cancelPopupBtn = document.getElementById('cancelPopupBtn');
       const confirmPopupBtn = document.getElementById('confirmPopupBtn');
+
+      function showNotification(message) {
+        notificationMessage.textContent = message;
+        notification.classList.add('show');
+        
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 2000);
+      }
 
       function animatePageTransition(direction, callback) {
         if (direction === 'out') {
@@ -784,7 +838,7 @@
 
       function showConfirmationPopup() {
         if (selectedRobux === null) {
-          alert('Please select a robux amount.');
+          showNotification('Please select an amount first');
           return false;
         }
 
@@ -805,7 +859,7 @@
       function processOrder() {
         const username = popupUsernameInput.value.trim();
         if (!username) {
-          alert('Please enter your Roblox username.');
+          showNotification('Please enter your Roblox username');
           popupUsernameInput.focus();
           return;
         }
@@ -821,7 +875,7 @@
 
         setTimeout(() => {
           overlay.classList.remove('active');
-          alert(`Prepared ${selectedRobux} Robux for ${username} (demo)`);
+          showNotification(`Prepared ${selectedRobux} Robux for ${username}!`);
         }, 2500);
       }
 
