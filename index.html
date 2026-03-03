@@ -62,7 +62,31 @@
       to { transform: scaleY(1); }
     }
 
-    /* Slideshow container */
+    /* Notification */
+    .notification {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: #ffb347;
+      color: #000000;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      z-index: 10001;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+      pointer-events: none;
+      border: none;
+      text-align: center;
+    }
+
+    .notification.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
     .slideshow-container {
       max-width: 600px;
       width: 100%;
@@ -155,6 +179,7 @@
       margin: 1rem auto 0;
     }
 
+    /* How it works - FIXED with emojis */
     .how-it-works-content {
       background: #16212e;
       border: 2px solid #ffb347;
@@ -171,14 +196,14 @@
       font-weight: 600;
       text-transform: uppercase;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 2rem;
       line-height: 1.3;
     }
 
     .steps-list {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
 
@@ -186,28 +211,15 @@
       display: flex;
       align-items: flex-start;
       gap: 1rem;
-    }
-
-    .step-number {
-      background: #ffb347;
-      color: #0b0e14;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1rem;
-      flex-shrink: 0;
-      margin-top: 0.2rem;
-    }
-
-    .step-text {
+      font-size: 1.1rem;
       color: #d0e2ff;
-      font-size: 1rem;
       line-height: 1.5;
-      flex: 1;
+    }
+
+    .step-emoji {
+      font-size: 1.5rem;
+      min-width: 2rem;
+      text-align: center;
     }
 
     .note-box {
@@ -215,7 +227,7 @@
       border-left: 4px solid #ffb347;
       border-radius: 12px;
       padding: 1.2rem;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
 
     .note-box p {
@@ -605,7 +617,7 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notification - EXACT match to FruitLabs -->
+  <!-- Notification -->
   <div class="notification" id="notification">Please select an amount first</div>
 
   <!-- Confirmation Popup -->
@@ -642,28 +654,28 @@
 
       <div class="slide" id="slide-1">
         <div class="how-it-works-content">
-          <h2>how does<br>RBX LABS work?</h2>
+          <h2>HOW DOES<br>RBX LABS WORK?</h2>
           
           <div class="steps-list">
             <div class="step-item">
-              <div class="step-number">1</div>
-              <div class="step-text">You enter the amount of Robux you want.</div>
+              <span class="step-emoji">1️⃣</span>
+              <span class="step-text">You enter the amount of Robux you want.</span>
             </div>
             <div class="step-item">
-              <div class="step-number">2</div>
-              <div class="step-text">You type in your Roblox username.</div>
+              <span class="step-emoji">2️⃣</span>
+              <span class="step-text">You type in your Roblox username.</span>
             </div>
             <div class="step-item">
-              <div class="step-number">3</div>
-              <div class="step-text">The site processes your request.</div>
+              <span class="step-emoji">3️⃣</span>
+              <span class="step-text">The site processes your request.</span>
             </div>
             <div class="step-item">
-              <div class="step-number">4</div>
-              <div class="step-text">You are redirected to a private server in PLS DONATE.</div>
+              <span class="step-emoji">4️⃣</span>
+              <span class="step-text">You are redirected to a private server in PLS DONATE.</span>
             </div>
             <div class="step-item">
-              <div class="step-number">5</div>
-              <div class="step-text">The bot donates Robux to your stand.</div>
+              <span class="step-emoji">5️⃣</span>
+              <span class="step-text">The bot donates Robux to your stand.</span>
             </div>
           </div>
 
