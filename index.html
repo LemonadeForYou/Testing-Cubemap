@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
-  <!-- Font Awesome for user icon only -->
+  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -29,6 +30,7 @@
       color: #eef3fc;
     }
 
+    /* Page Transition Overlay - exact from FruitLabs */
     .page-transition {
       position: fixed;
       top: 0;
@@ -60,12 +62,12 @@
       to { transform: scaleY(1); }
     }
 
-    /* Notification style - exactly like FruitLabs */
+    /* Notification - slide down only, no fade */
     .notification {
       position: fixed;
       top: 20px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(-20px);
       background: #16212e;
       border: 2px solid #ffb347;
       border-radius: 40px;
@@ -78,16 +80,15 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      opacity: 0;
       visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+      transition: transform 0.3s ease, visibility 0.3s ease;
       pointer-events: none;
+      backdrop-filter: blur(8px);
     }
 
     .notification.show {
-      opacity: 1;
       visibility: visible;
-      transform: translateX(-50%) translateY(10px);
+      transform: translateX(-50%) translateY(0);
     }
 
     .notification i {
@@ -379,7 +380,7 @@
       object-fit: contain;
     }
 
-    /* Confirmation Popup */
+    /* Confirmation Popup - matching FruitLabs loading overlay style */
     .confirmation-overlay {
       position: fixed;
       top: 0;
@@ -572,6 +573,7 @@
       pointer-events: none;
     }
 
+    /* Loading Overlay - exact from FruitLabs */
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -636,7 +638,7 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notification (FruitLabs style) -->
+  <!-- Notification - slide down only, no fade -->
   <div class="notification" id="notification">
     <i class="fas fa-exclamation-circle"></i>
     <span id="notificationMessage">Please select an amount first</span>
@@ -745,6 +747,7 @@
     </div>
   </div>
 
+  <!-- Loading Overlay - exact from FruitLabs -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
@@ -842,11 +845,9 @@
           return false;
         }
 
-        // Clear and focus username input in popup
         popupUsernameInput.value = '';
         popupAmountSpan.textContent = selectedRobux.toLocaleString();
         
-        // Show popup
         confirmationOverlay.classList.add('active');
         setTimeout(() => popupUsernameInput.focus(), 100);
         return true;
@@ -879,7 +880,6 @@
         }, 2500);
       }
 
-      // Navigation functions
       function goToSlide(newIndex) {
         if (newIndex === currentSlide) return;
         
@@ -896,7 +896,6 @@
           
           prevBtn.disabled = (currentSlide === 0);
           
-          // On the last slide (choose amount), change next button to "confirm"
           if (currentSlide === slides.length - 1) {
             nextBtn.innerHTML = `confirm <i class="fas fa-check-circle"></i>`;
           } else {
@@ -909,10 +908,8 @@
 
       function handleNext() {
         if (currentSlide === slides.length - 1) {
-          // On the last slide, show confirmation popup
           showConfirmationPopup();
         } else {
-          // Otherwise go to next slide
           goToSlide(currentSlide + 1);
         }
       }
@@ -923,21 +920,18 @@
         }
       }
 
-      // Event listeners
       prevBtn.addEventListener('click', handlePrev);
       nextBtn.addEventListener('click', handleNext);
 
       cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
       confirmPopupBtn.addEventListener('click', processOrder);
 
-      // Close popup if clicking outside
       confirmationOverlay.addEventListener('click', (e) => {
         if (e.target === confirmationOverlay) {
           hideConfirmationPopup();
         }
       });
 
-      // Enter key in popup username field
       popupUsernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
