@@ -296,7 +296,7 @@
       color: #ffd966;
       font-size: 1rem;
       font-weight: 500;
-      margin: 1.5rem 0 1rem 0;
+      margin: 0 0 1rem 0;
       display: block;
     }
 
@@ -304,7 +304,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
     }
 
     .quick-select-btn {
@@ -326,83 +326,22 @@
       transform: translateY(-2px);
     }
 
-    .robux-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
-      padding: 0.5rem 0 1.5rem 0;
-    }
-
-    .robux-card {
-      background: #1f3142;
-      border-radius: 16px;
-      padding: 1.2rem 0.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      border: 2px solid transparent;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-
-    .robux-card:hover {
-      transform: translateY(-2px);
-      border-color: #ffb347;
-    }
-
-    .robux-card.selected {
+    .quick-select-btn.selected {
       border-color: #ffb347;
       background: #2a4058;
       box-shadow: 0 0 15px rgba(255, 180, 71, 0.3);
     }
 
-    .robux-icon {
-      width: 70px;
-      height: 70px;
-      background: #0f1a26;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.6rem;
-      border: 2px solid #2f4a6a;
-    }
-
-    .robux-icon i {
-      font-size: 2.2rem;
-      color: #ffb347;
-    }
-
-    .robux-amount {
-      color: #d0e2ff;
-      font-size: 1.4rem;
-      font-weight: 700;
-      background: #0f1a26;
-      width: 100%;
-      padding: 0.4rem 0;
-      border-radius: 30px;
-      border: 1px solid #2f4a6a;
-      pointer-events: none;
-    }
-
-    .robux-card.selected .robux-amount {
-      background: #ffb347;
-      color: #0b0e14;
-      border-color: #ffb347;
-    }
-
     .selected-count-container {
-      position: sticky;
-      top: 0;
       background: #16212e;
       padding: 0.5rem 1rem;
       border-radius: 40px;
       border: 1px solid #ffb347;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       display: inline-block;
-      z-index: 10;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .selected-count-text {
@@ -665,7 +604,7 @@
           <h2>choose amount</h2>
         </div>
 
-        <div class="selected-count-container" style="margin-left: auto; margin-right: auto; display: block; width: fit-content;">
+        <div class="selected-count-container">
           <span class="selected-count-text">ROBUX SELECTED</span>
           <span class="selected-count-number" id="selectedCount">0</span>
         </div>
@@ -686,9 +625,6 @@
           <div class="quick-select-btn" data-amount="2000">2,000 robux</div>
           <div class="quick-select-btn" data-amount="1000">1,000 robux</div>
           <div class="quick-select-btn" data-amount="500">500 robux</div>
-        </div>
-
-        <div class="robux-grid" id="robuxGrid">
         </div>
       </div>
 
@@ -729,8 +665,6 @@
 
   <script>
     (function() {
-      const robuxOptions = [0, 50, 100, 200, 350, 500, 750, 1000];
-
       let currentSlide = 0;
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
@@ -739,7 +673,6 @@
 
       let selectedRobux = null;
       const selectedCountSpan = document.getElementById('selectedCount');
-      const robuxGrid = document.getElementById('robuxGrid');
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
 
@@ -762,39 +695,16 @@
         }
       }
 
-      function renderRobuxCards() {
-        if (!robuxGrid) return;
-        let html = '';
-        robuxOptions.forEach(amount => {
-          const isSelected = (selectedRobux === amount);
-          html += `
-            <div class="robux-card ${isSelected ? 'selected' : ''}" data-amount="${amount}">
-              <div class="robux-icon">
-                <i class="fas fa-coins"></i>
-              </div>
-              <div class="robux-amount">${amount}</div>
-            </div>
-          `;
-        });
-        robuxGrid.innerHTML = html;
-
-        document.querySelectorAll('.robux-card').forEach(card => {
-          card.addEventListener('click', () => {
-            const amount = parseInt(card.dataset.amount, 10);
-            selectedRobux = amount;
-            if (robuxAmountInput) {
-              robuxAmountInput.value = amount;
-            }
-            updateSelectedCount();
-            renderRobuxCards();
-          });
-        });
-      }
-
       function updateSelectedCount() {
         if (selectedCountSpan) {
           selectedCountSpan.innerText = selectedRobux !== null ? '1' : '0';
         }
+      }
+
+      function removeSelectedClassFromButtons() {
+        quickSelectBtns.forEach(btn => {
+          btn.classList.remove('selected');
+        });
       }
 
       quickSelectBtns.forEach(btn => {
@@ -802,24 +712,29 @@
           const amount = parseInt(btn.dataset.amount, 10);
           selectedRobux = amount;
           if (robuxAmountInput) {
-            robuxAmountInput.value = amount;
+            robuxAmountInput.value = amount.toLocaleString();
           }
           updateSelectedCount();
-          renderRobuxCards();
+          
+          removeSelectedClassFromButtons();
+          btn.classList.add('selected');
         });
       });
 
       if (robuxAmountInput) {
         robuxAmountInput.addEventListener('input', (e) => {
-          const value = parseInt(e.target.value, 10);
+          const rawValue = e.target.value.replace(/,/g, '');
+          const value = parseInt(rawValue, 10);
           if (!isNaN(value) && value >= 0) {
             selectedRobux = value;
             updateSelectedCount();
-            renderRobuxCards();
+            
+            removeSelectedClassFromButtons();
           } else if (e.target.value === '') {
             selectedRobux = null;
             updateSelectedCount();
-            renderRobuxCards();
+            
+            removeSelectedClassFromButtons();
           }
         });
       }
@@ -905,7 +820,6 @@
         }, 2500);
       }
 
-      renderRobuxCards();
       updateSelectedCount();
 
       prevBtn.addEventListener('click', handlePrev);
