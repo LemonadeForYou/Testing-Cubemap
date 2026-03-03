@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
+  <!-- Font Awesome for user icon only -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
@@ -271,10 +272,11 @@
       padding: 0.3rem 0.3rem 0.3rem 1.5rem;
     }
 
-    .amount-input-wrapper i {
-      color: #ffb347;
-      font-size: 1.2rem;
+    .robux-logo {
+      width: 24px;
+      height: 24px;
       margin-right: 0.5rem;
+      object-fit: contain;
     }
 
     #robuxAmount {
@@ -318,6 +320,10 @@
       cursor: pointer;
       transition: all 0.15s ease;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
     }
 
     .quick-select-btn:hover {
@@ -330,6 +336,12 @@
       border-color: #ffb347;
       background: #2a4058;
       box-shadow: 0 0 15px rgba(255, 180, 71, 0.3);
+    }
+
+    .quick-select-btn .btn-robux-logo {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
     }
 
     .selected-count-container {
@@ -612,19 +624,20 @@
         <div class="amount-input-container">
           <span class="amount-label">enter amount</span>
           <div class="amount-input-wrapper">
-            <i class="fas fa-coins"></i>
+            <img src="robux.png" alt="Robux" class="robux-logo" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <i class="fas fa-coins" style="display: none; color: #ffb347; font-size: 1.2rem; margin-right: 0.5rem;"></i>
             <input type="number" id="robuxAmount" placeholder="0" min="0" step="1">
           </div>
         </div>
 
         <span class="quick-select-label">quick select</span>
         <div class="quick-select-grid" id="quickSelectGrid">
-          <div class="quick-select-btn" data-amount="24000">24,000 robux</div>
-          <div class="quick-select-btn" data-amount="11000">11,000 robux</div>
-          <div class="quick-select-btn" data-amount="5250">5,250 robux</div>
-          <div class="quick-select-btn" data-amount="2000">2,000 robux</div>
-          <div class="quick-select-btn" data-amount="1000">1,000 robux</div>
-          <div class="quick-select-btn" data-amount="500">500 robux</div>
+          <div class="quick-select-btn" data-amount="24000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 24,000</div>
+          <div class="quick-select-btn" data-amount="11000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 11,000</div>
+          <div class="quick-select-btn" data-amount="5250"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 5,250</div>
+          <div class="quick-select-btn" data-amount="2000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 2,000</div>
+          <div class="quick-select-btn" data-amount="1000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 1,000</div>
+          <div class="quick-select-btn" data-amount="500"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 500</div>
         </div>
       </div>
 
@@ -712,7 +725,7 @@
           const amount = parseInt(btn.dataset.amount, 10);
           selectedRobux = amount;
           if (robuxAmountInput) {
-            robuxAmountInput.value = amount.toLocaleString();
+            robuxAmountInput.value = amount;
           }
           updateSelectedCount();
           
@@ -723,8 +736,7 @@
 
       if (robuxAmountInput) {
         robuxAmountInput.addEventListener('input', (e) => {
-          const rawValue = e.target.value.replace(/,/g, '');
-          const value = parseInt(rawValue, 10);
+          const value = parseInt(e.target.value, 10);
           if (!isNaN(value) && value >= 0) {
             selectedRobux = value;
             updateSelectedCount();
