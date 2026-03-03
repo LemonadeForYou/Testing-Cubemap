@@ -724,7 +724,7 @@
     <div class="nav-buttons-container">
       <div class="nav-buttons">
         <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
-        <button class="nav-btn" id="confirmFinishBtn">confirm <i class="fas fa-check-circle"></i></button>
+        <button class="nav-btn" id="nextBtn">next <i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -742,7 +742,7 @@
       let currentSlide = 0;
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
-      const confirmFinishBtn = document.getElementById('confirmFinishBtn');
+      const nextBtn = document.getElementById('nextBtn');
       const pageTransition = document.getElementById('pageTransition');
 
       let selectedRobux = null;
@@ -850,27 +850,7 @@
         }, 2500);
       }
 
-      // Confirm button in navigation triggers popup
-      confirmFinishBtn.addEventListener('click', showConfirmationPopup);
-
-      cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
-
-      confirmPopupBtn.addEventListener('click', processOrder);
-
-      // Close popup if clicking outside
-      confirmationOverlay.addEventListener('click', (e) => {
-        if (e.target === confirmationOverlay) {
-          hideConfirmationPopup();
-        }
-      });
-
-      usernameInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          e.preventDefault();
-          showConfirmationPopup();
-        }
-      });
-
+      // Navigation functions
       function goToSlide(newIndex) {
         if (newIndex === currentSlide) return;
         
@@ -887,8 +867,25 @@
           
           prevBtn.disabled = (currentSlide === 0);
           
+          // On the last slide (choose amount), change next button to "confirm"
+          if (currentSlide === slides.length - 1) {
+            nextBtn.innerHTML = `confirm <i class="fas fa-check-circle"></i>`;
+          } else {
+            nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
+          }
+          
           animatePageTransition('in');
         });
+      }
+
+      function handleNext() {
+        if (currentSlide === slides.length - 1) {
+          // On the last slide, show confirmation popup instead of going to next slide
+          showConfirmationPopup();
+        } else {
+          // Otherwise go to next slide
+          goToSlide(currentSlide + 1);
+        }
       }
 
       function handlePrev() {
@@ -897,7 +894,26 @@
         }
       }
 
+      // Event listeners
       prevBtn.addEventListener('click', handlePrev);
+      nextBtn.addEventListener('click', handleNext);
+
+      cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
+      confirmPopupBtn.addEventListener('click', processOrder);
+
+      // Close popup if clicking outside
+      confirmationOverlay.addEventListener('click', (e) => {
+        if (e.target === confirmationOverlay) {
+          hideConfirmationPopup();
+        }
+      });
+
+      usernameInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          showConfirmationPopup();
+        }
+      });
     })();
   </script>
 </body>
