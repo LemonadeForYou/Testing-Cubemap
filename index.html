@@ -62,29 +62,7 @@
       to { transform: scaleY(1); }
     }
 
-    /* Notification - exact style from FruitLabs */
-    .notification {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-100px);
-      background: #ffb347;
-      color: #0b0e14;
-      font-weight: 600;
-      font-size: 1rem;
-      padding: 0.8rem 2rem;
-      border-radius: 40px;
-      z-index: 10001;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      transition: transform 0.3s ease;
-      white-space: nowrap;
-      pointer-events: none;
-    }
-
-    .notification.show {
-      transform: translateX(-50%) translateY(0);
-    }
-
+    /* Slideshow container */
     .slideshow-container {
       max-width: 600px;
       width: 100%;
@@ -627,7 +605,7 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notification - EXACT style from FruitLabs -->
+  <!-- Notification - EXACT match to FruitLabs -->
   <div class="notification" id="notification">Please select an amount first</div>
 
   <!-- Confirmation Popup -->
@@ -749,13 +727,11 @@
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const pageTransition = document.getElementById('pageTransition');
+      const notification = document.getElementById('notification');
 
       let selectedRobux = null;
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
-
-      // Notification element
-      const notification = document.getElementById('notification');
 
       // Popup elements
       const confirmationOverlay = document.getElementById('confirmationOverlay');
@@ -861,7 +837,6 @@
 
         setTimeout(() => {
           overlay.classList.remove('active');
-          showNotification(`Prepared ${selectedRobux} Robux for ${username}!`);
         }, 2500);
       }
 
