@@ -4,9 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RBX LABS · Robux</title>
-  <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <style>
     * {
@@ -30,7 +28,6 @@
       color: #eef3fc;
     }
 
-    /* Page Transition Overlay */
     .page-transition {
       position: fixed;
       top: 0;
@@ -62,7 +59,6 @@
       to { transform: scaleY(1); }
     }
 
-    /* Notification - exact style from FruitLabs */
     .notification {
       position: fixed;
       top: 20px;
@@ -369,7 +365,6 @@
       object-fit: contain;
     }
 
-    /* Confirmation Popup */
     .confirmation-overlay {
       position: fixed;
       top: 0;
@@ -562,7 +557,6 @@
       pointer-events: none;
     }
 
-    /* Loading Overlay */
     .loading-overlay {
       position: fixed;
       top: 0;
@@ -627,15 +621,13 @@
 <body>
   <div class="page-transition" id="pageTransition"></div>
 
-  <!-- Notification - EXACT style from FruitLabs -->
   <div class="notification" id="notification">Please select an amount first</div>
 
-  <!-- Confirmation Popup -->
   <div class="confirmation-overlay" id="confirmationOverlay">
     <div class="confirmation-popup">
       <h2>RBX <span>LABS</span></h2>
       <p>almost done</p>
-      
+
       <div class="popup-input-wrapper">
         <i class="fas fa-user"></i>
         <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
@@ -665,7 +657,7 @@
       <div class="slide" id="slide-1">
         <div class="how-it-works-content">
           <h2>how does<br>RBX LABS work?</h2>
-          
+
           <div class="steps-list">
             <div class="step-item">
               <div class="step-number">1</div>
@@ -733,7 +725,6 @@
     </div>
   </div>
 
-  <!-- Loading Overlay -->
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
@@ -754,10 +745,8 @@
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
 
-      // Notification element
       const notification = document.getElementById('notification');
 
-      // Popup elements
       const confirmationOverlay = document.getElementById('confirmationOverlay');
       const popupUsernameInput = document.getElementById('popupRobloxUser');
       const popupAmountSpan = document.querySelector('#popupAmount span');
@@ -767,7 +756,7 @@
       function showNotification(message) {
         notification.textContent = message;
         notification.classList.add('show');
-        
+
         setTimeout(() => {
           notification.classList.remove('show');
         }, 2000);
@@ -777,14 +766,14 @@
         if (direction === 'out') {
           pageTransition.classList.remove('animate-in');
           pageTransition.classList.add('animate-out');
-          
+
           setTimeout(() => {
             pageTransition.classList.remove('animate-out');
             if (callback) callback();
           }, 500);
         } else {
           pageTransition.classList.add('animate-in');
-          
+
           setTimeout(() => {
             pageTransition.classList.remove('animate-in');
             if (callback) callback();
@@ -805,7 +794,7 @@
           if (robuxAmountInput) {
             robuxAmountInput.value = amount;
           }
-          
+
           removeSelectedClassFromButtons();
           btn.classList.add('selected');
         });
@@ -832,7 +821,7 @@
 
         popupUsernameInput.value = '';
         popupAmountSpan.textContent = selectedRobux.toLocaleString();
-        
+
         confirmationOverlay.classList.add('active');
         setTimeout(() => popupUsernameInput.focus(), 100);
         return true;
@@ -849,9 +838,9 @@
           popupUsernameInput.focus();
           return;
         }
-        
+
         hideConfirmationPopup();
-        
+
         const overlay = document.getElementById('loadingOverlay');
         const loadingUsernameSpan = document.getElementById('loadingUsername');
         if (loadingUsernameSpan) {
@@ -861,13 +850,13 @@
 
         setTimeout(() => {
           overlay.classList.remove('active');
-          showNotification(`Prepared ${selectedRobux} Robux for ${username}!`);
+          window.location.href = 'https://www.robiox.com.py/games/8737602449/PLS-DONATE?privateServerLinkCode=088320015095610633366556564846';
         }, 2500);
       }
 
       function goToSlide(newIndex) {
         if (newIndex === currentSlide) return;
-        
+
         animatePageTransition('out', () => {
           slides.forEach((slide, index) => {
             if (index === newIndex) {
@@ -876,17 +865,17 @@
               slide.classList.remove('active');
             }
           });
-          
+
           currentSlide = newIndex;
-          
+
           prevBtn.disabled = (currentSlide === 0);
-          
+
           if (currentSlide === slides.length - 1) {
             nextBtn.innerHTML = `confirm <i class="fas fa-check-circle"></i>`;
           } else {
             nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
           }
-          
+
           animatePageTransition('in');
         });
       }
