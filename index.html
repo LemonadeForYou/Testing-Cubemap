@@ -728,7 +728,7 @@
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
       <div class="loading-spinner"></div>
-      <div class="loading-main-text">preparing robux...</div>
+      <div class="loading-main-text" id="loadingMainText">preparing robux...</div>
       <div style="color:#8fadc7; font-size:1rem;" id="loadingUsername"></div>
     </div>
   </div>
@@ -842,9 +842,12 @@
         hideConfirmationPopup();
 
         const overlay = document.getElementById('loadingOverlay');
+        const loadingMainText = document.getElementById('loadingMainText');
         const loadingUsernameSpan = document.getElementById('loadingUsername');
+        
+        loadingMainText.innerText = `preparing ${selectedRobux.toLocaleString()} robux...`;
         if (loadingUsernameSpan) {
-          loadingUsernameSpan.innerText = `@${username} · ${selectedRobux} robux`;
+          loadingUsernameSpan.innerText = `@${username}`;
         }
         overlay.classList.add('active');
 
