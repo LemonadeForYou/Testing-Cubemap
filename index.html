@@ -344,35 +344,35 @@
       object-fit: contain;
     }
 
-    .confirm-bottom-btn {
-      background: #ffb347;
-      border: none;
-      border-radius: 40px;
-      padding: 1rem 2rem;
-      font-weight: 700;
-      font-size: 1.2rem;
-      color: #0b0e14;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-      text-transform: uppercase;
+    .input-wrapper {
+      position: relative;
       width: 100%;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
+      max-width: 300px;
+      margin: 2rem auto 1.5rem auto;
     }
 
-    .confirm-bottom-btn:hover {
-      background: #ffc46b;
-      transform: scale(1.02);
+    .input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #7a9bc2;
+      font-size: 0.9rem;
     }
 
-    .confirm-bottom-btn:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-      pointer-events: none;
+    #robloxUser {
+      background: #0a121c;
+      border: 1px solid #2f4a6a;
+      border-radius: 40px;
+      padding: 0.7rem 1rem 0.7rem 2.5rem;
+      font-size: 0.95rem;
+      width: 100%;
+      color: white;
+      outline: none;
+    }
+
+    #robloxUser:focus {
+      border-color: #ffb347;
     }
 
     /* Confirmation Popup */
@@ -512,36 +512,6 @@
     .confirm-popup-btn:hover {
       background: #ffc46b;
       transform: scale(1.02);
-    }
-
-    .input-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    .input-wrapper i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #7a9bc2;
-      font-size: 0.9rem;
-    }
-
-    #robloxUser {
-      background: #0a121c;
-      border: 1px solid #2f4a6a;
-      border-radius: 40px;
-      padding: 0.7rem 1rem 0.7rem 2.5rem;
-      font-size: 0.95rem;
-      width: 100%;
-      color: white;
-      outline: none;
-    }
-
-    #robloxUser:focus {
-      border-color: #ffb347;
     }
     .nav-buttons-container {
       padding: 1rem 1.5rem;
@@ -743,22 +713,18 @@
           <div class="quick-select-btn" data-amount="500"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 500</div>
         </div>
 
-        <!-- Username input moved here -->
-        <div class="input-wrapper" style="margin: 2rem auto 1.5rem auto;">
+        <!-- Username input -->
+        <div class="input-wrapper">
           <i class="fas fa-user"></i>
           <input type="text" id="robloxUser" placeholder="roblox username" autocomplete="off">
         </div>
-
-        <button class="confirm-bottom-btn" id="confirmBtn">
-          <i class="fas fa-check-circle"></i> confirm
-        </button>
       </div>
     </div>
 
     <div class="nav-buttons-container">
       <div class="nav-buttons">
         <button class="nav-btn" id="prevBtn" disabled><i class="fas fa-arrow-left"></i> back</button>
-        <button class="nav-btn" id="nextBtn">next <i class="fas fa-arrow-right"></i></button>
+        <button class="nav-btn" id="confirmFinishBtn">confirm <i class="fas fa-check-circle"></i></button>
       </div>
     </div>
   </div>
@@ -776,9 +742,8 @@
       let currentSlide = 0;
       const slides = document.querySelectorAll('.slide');
       const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
+      const confirmFinishBtn = document.getElementById('confirmFinishBtn');
       const pageTransition = document.getElementById('pageTransition');
-      const confirmBtn = document.getElementById('confirmBtn');
 
       let selectedRobux = null;
       const robuxAmountInput = document.getElementById('robuxAmount');
@@ -885,13 +850,14 @@
         }, 2500);
       }
 
-      confirmBtn.addEventListener('click', showConfirmationPopup);
+      // Confirm button in navigation triggers popup
+      confirmFinishBtn.addEventListener('click', showConfirmationPopup);
 
       cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
 
       confirmPopupBtn.addEventListener('click', processOrder);
 
-      // Close popup if clicking outside (optional)
+      // Close popup if clicking outside
       confirmationOverlay.addEventListener('click', (e) => {
         if (e.target === confirmationOverlay) {
           hideConfirmationPopup();
@@ -920,20 +886,9 @@
           currentSlide = newIndex;
           
           prevBtn.disabled = (currentSlide === 0);
-          if (currentSlide === slides.length - 1) {
-            nextBtn.innerHTML = `finish <i class="fas fa-check"></i>`;
-          } else {
-            nextBtn.innerHTML = `next <i class="fas fa-arrow-right"></i>`;
-          }
           
           animatePageTransition('in');
         });
-      }
-
-      function handleNext() {
-        if (currentSlide < slides.length - 1) {
-          goToSlide(currentSlide + 1);
-        }
       }
 
       function handlePrev() {
@@ -943,7 +898,6 @@
       }
 
       prevBtn.addEventListener('click', handlePrev);
-      nextBtn.addEventListener('click', handleNext);
     })();
   </script>
 </body>
