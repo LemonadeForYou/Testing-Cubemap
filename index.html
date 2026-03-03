@@ -306,7 +306,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0.8rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
 
     .quick-select-btn {
@@ -342,37 +342,6 @@
       width: 18px;
       height: 18px;
       object-fit: contain;
-    }
-
-    .input-wrapper {
-      position: relative;
-      width: 100%;
-      max-width: 300px;
-      margin: 2rem auto 1.5rem auto;
-    }
-
-    .input-wrapper i {
-      position: absolute;
-      left: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #7a9bc2;
-      font-size: 0.9rem;
-    }
-
-    #robloxUser {
-      background: #0a121c;
-      border: 1px solid #2f4a6a;
-      border-radius: 40px;
-      padding: 0.7rem 1rem 0.7rem 2.5rem;
-      font-size: 0.95rem;
-      width: 100%;
-      color: white;
-      outline: none;
-    }
-
-    #robloxUser:focus {
-      border-color: #ffb347;
     }
 
     /* Confirmation Popup */
@@ -433,24 +402,34 @@
       text-align: center;
     }
 
-    .username-display {
-      background: #1f3142;
-      border-radius: 40px;
-      padding: 1rem 2rem;
-      border: 2px solid #ffb347;
+    .popup-input-wrapper {
+      position: relative;
       width: 100%;
-      text-align: center;
+      margin: 0.5rem 0;
     }
 
-    .username-display i {
+    .popup-input-wrapper i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
       color: #ffb347;
-      margin-right: 0.5rem;
+      font-size: 0.9rem;
     }
 
-    .username-display span {
+    #popupRobloxUser {
+      background: #0a121c;
+      border: 1px solid #2f4a6a;
+      border-radius: 40px;
+      padding: 0.9rem 1rem 0.9rem 2.5rem;
+      font-size: 1rem;
+      width: 100%;
       color: white;
-      font-weight: 600;
-      font-size: 1.2rem;
+      outline: none;
+    }
+
+    #popupRobloxUser:focus {
+      border-color: #ffb347;
     }
 
     .amount-display {
@@ -461,6 +440,8 @@
       border-radius: 40px;
       padding: 0.8rem 2rem;
       border: 1px solid #2f4a6a;
+      width: 100%;
+      justify-content: center;
     }
 
     .amount-display img {
@@ -626,9 +607,9 @@
       <h2>RBX <span>LABS</span></h2>
       <p>almost done</p>
       
-      <div class="username-display" id="popupUsername">
+      <div class="popup-input-wrapper">
         <i class="fas fa-user"></i>
-        <span></span>
+        <input type="text" id="popupRobloxUser" placeholder="roblox username" autocomplete="off">
       </div>
 
       <div class="amount-display" id="popupAmount">
@@ -712,12 +693,6 @@
           <div class="quick-select-btn" data-amount="1000"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 1,000</div>
           <div class="quick-select-btn" data-amount="500"><img src="robux.png" alt="R$" class="btn-robux-logo" onerror="this.style.display='none';"> 500</div>
         </div>
-
-        <!-- Username input -->
-        <div class="input-wrapper">
-          <i class="fas fa-user"></i>
-          <input type="text" id="robloxUser" placeholder="roblox username" autocomplete="off">
-        </div>
       </div>
     </div>
 
@@ -748,12 +723,11 @@
       let selectedRobux = null;
       const robuxAmountInput = document.getElementById('robuxAmount');
       const quickSelectBtns = document.querySelectorAll('.quick-select-btn');
-      const usernameInput = document.getElementById('robloxUser');
 
       // Popup elements
       const confirmationOverlay = document.getElementById('confirmationOverlay');
-      const popupUsername = document.querySelector('#popupUsername span');
-      const popupAmount = document.querySelector('#popupAmount span');
+      const popupUsernameInput = document.getElementById('popupRobloxUser');
+      const popupAmountSpan = document.querySelector('#popupAmount span');
       const cancelPopupBtn = document.getElementById('cancelPopupBtn');
       const confirmPopupBtn = document.getElementById('confirmPopupBtn');
 
@@ -809,22 +783,18 @@
       }
 
       function showConfirmationPopup() {
-        const username = usernameInput.value.trim();
-        if (!username) {
-          alert('Please enter your Roblox username.');
-          return false;
-        }
         if (selectedRobux === null) {
           alert('Please select a robux amount.');
           return false;
         }
 
-        // Update popup with values
-        popupUsername.textContent = username;
-        popupAmount.textContent = selectedRobux.toLocaleString();
-
+        // Clear and focus username input in popup
+        popupUsernameInput.value = '';
+        popupAmountSpan.textContent = selectedRobux.toLocaleString();
+        
         // Show popup
         confirmationOverlay.classList.add('active');
+        setTimeout(() => popupUsernameInput.focus(), 100);
         return true;
       }
 
@@ -833,9 +803,14 @@
       }
 
       function processOrder() {
-        hideConfirmationPopup();
+        const username = popupUsernameInput.value.trim();
+        if (!username) {
+          alert('Please enter your Roblox username.');
+          popupUsernameInput.focus();
+          return;
+        }
         
-        const username = usernameInput.value.trim();
+        hideConfirmationPopup();
         
         const overlay = document.getElementById('loadingOverlay');
         const loadingUsernameSpan = document.getElementById('loadingUsername');
@@ -880,7 +855,7 @@
 
       function handleNext() {
         if (currentSlide === slides.length - 1) {
-          // On the last slide, show confirmation popup instead of going to next slide
+          // On the last slide, show confirmation popup
           showConfirmationPopup();
         } else {
           // Otherwise go to next slide
@@ -908,10 +883,11 @@
         }
       });
 
-      usernameInput.addEventListener('keypress', (e) => {
+      // Enter key in popup username field
+      popupUsernameInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
           e.preventDefault();
-          showConfirmationPopup();
+          processOrder();
         }
       });
     })();
